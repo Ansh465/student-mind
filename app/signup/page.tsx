@@ -71,10 +71,7 @@ export default function SignupPage() {
 
             <div className="w-full max-w-md animate-fade-in-up">
                 <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 animate-pulse-ring"
-                        style={{ background: 'var(--accent)' }}>
-                        <GraduationCap className="w-8 h-8" style={{ color: 'var(--accent-fg)' }} />
-                    </div>
+                    <img src="/logo.png" alt="Student Mind Logo" className="w-20 h-20 mx-auto mb-4 object-contain animate-float" />
                     <h1 className="text-3xl font-bold text-[var(--text)]">Get started</h1>
                     <p className="text-[var(--text-sub)] mt-2">Create your Student Mind account</p>
                 </div>

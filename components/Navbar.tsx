@@ -27,11 +27,9 @@ export function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <Link href="/dashboard" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style={{ background: 'var(--accent)' }}>
-                            <GraduationCap className="w-5 h-5" style={{ color: 'var(--accent-fg)' }} />
-                        </div>
-                        <span className="font-bold text-[var(--text)] hidden sm:block">Student Mind</span>
+                    <Link href="/dashboard" className="flex items-center gap-2.5 group hover:opacity-90 transition-opacity">
+                        <img src="/logo.png" alt="Logo" className="w-9 h-9 object-contain" />
+                        <span className="font-bold text-[var(--text)] hidden sm:block tracking-tight text-lg">Student Mind</span>
                     </Link>
 
                     {/* Nav Links + Theme Toggle */}

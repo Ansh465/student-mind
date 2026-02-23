@@ -28,10 +28,8 @@ export default async function LandingPage() {
       {/* ─── NAVBAR ─────────────────────────────────────── */}
       <header className="navbar-glass sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent)' }}>
-              <GraduationCap className="w-4 h-4" style={{ color: 'var(--accent-fg)' }} />
-            </div>
+          <div className="flex items-center gap-2.5">
+            <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
             <span className="font-semibold text-[var(--text)] text-sm tracking-tight">Student Mind</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-[13px] text-[var(--text-sub)]">
@@ -239,10 +237,8 @@ export default async function LandingPage() {
       {/* ─── FOOTER ───────────────────────────────────────── */}
       <footer className="border-t border-[var(--border)] py-12 px-6 bg-[var(--bg-raised)]/50">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: 'var(--accent)' }}>
-              <GraduationCap className="w-3.5 h-3.5" style={{ color: 'var(--accent-fg)' }} />
-            </div>
+          <div className="flex items-center gap-2.5 mb-4 md:mb-0">
+            <img src="/logo.png" alt="Logo" className="w-7 h-7 object-contain" />
             <span className="font-bold text-[var(--text)] text-sm">Student Mind</span>
           </div>
           <div className="flex items-center gap-8 text-[var(--text-muted)] text-xs font-medium">

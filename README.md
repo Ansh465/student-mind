@@ -39,3 +39,7 @@ Student Mind is an all-in-one personal dashboard designed for international stud
 ## License
 
 Student Mind is an organizational tool and does not constitute legal or immigration advice. Always verify visa compliance with official UK Government sources.
+
+---
+
+*I am a Vibe Coder.* ⚡️✨
