@@ -3,37 +3,16 @@ import { redirect } from 'next/navigation'
 import { Navbar } from '@/components/Navbar'
 import { Newspaper, ExternalLink, Clock, AlertCircle } from 'lucide-react'
 import { format } from 'date-fns'
+import { getGovNews, NewsItem } from '@/lib/news'
 
 export const dynamic = 'force-dynamic'
-
-interface NewsItem {
-    id: string
-    title: string
-    summary: string
-    link: string
-    published: string
-    category: string
-}
-
-async function getNews(): Promise<NewsItem[]> {
-    try {
-        // Use absolute URL for server-side fetch in Next.js
-        const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
-        const res = await fetch(`${baseUrl}/api/gov-rss`, { next: { revalidate: 3600 } })
-        if (!res.ok) return []
-        const data = await res.json()
-        return data.items ?? []
-    } catch {
-        return []
-    }
-}
 
 export default async function ResourcesPage() {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) redirect('/login')
 
-    const news = await getNews()
+    const news = await getGovNews()
 
     return (
         <div className="min-h-screen">
@@ -42,12 +21,12 @@ export default async function ResourcesPage() {
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center">
-                            <Newspaper className="w-5 h-5 text-indigo-400" />
+                        <div className="w-10 h-10 rounded-xl bg-[var(--accent-soft)] border border-[var(--accent)]/20 flex items-center justify-center">
+                            <Newspaper className="w-5 h-5 text-[var(--accent)]" />
                         </div>
                         <div>
-                            <h1 className="text-2xl sm:text-3xl font-bold text-white">Resource Hub</h1>
-                            <p className="text-gray-400 text-sm">Latest UK student visa news from GOV.UK</p>
+                            <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)]">Resource Hub</h1>
+                            <p className="text-[var(--text-sub)] text-sm">Latest UK student visa news from GOV.UK</p>
                         </div>
                     </div>
                 </div>
@@ -67,34 +46,34 @@ export default async function ResourcesPage() {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="glass rounded-xl p-4 glass-hover group flex items-start justify-between"
+                            className="glass rounded-xl p-4 glass-hover group flex items-start justify-between border-[var(--border)] transition-all"
                         >
                             <div>
-                                <p className="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">{link.label}</p>
-                                <p className="text-xs text-gray-500 mt-0.5">{link.desc}</p>
+                                <p className="text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">{link.label}</p>
+                                <p className="text-xs text-[var(--text-muted)] mt-0.5">{link.desc}</p>
                             </div>
-                            <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-indigo-400 transition-colors flex-shrink-0 mt-0.5" />
+                            <ExternalLink className="w-4 h-4 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors flex-shrink-0 mt-0.5" />
                         </a>
                     ))}
                 </div>
 
                 {/* News Feed */}
                 <div>
-                    <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse inline-block" />
+                    <h2 className="text-lg font-semibold text-[var(--text)] mb-4 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse inline-block shadow-[0_0_8px_var(--accent-soft)]" />
                         Latest Updates from GOV.UK
                     </h2>
 
                     {news.length === 0 ? (
-                        <div className="glass rounded-2xl p-12 text-center">
-                            <AlertCircle className="w-10 h-10 text-gray-600 mx-auto mb-3" />
-                            <p className="text-gray-400 font-medium">Could not load news feed</p>
-                            <p className="text-gray-600 text-sm mt-1">Please check the official GOV.UK website directly.</p>
+                        <div className="glass rounded-2xl p-12 text-center border-[var(--border)]">
+                            <AlertCircle className="w-10 h-10 text-[var(--text-muted)] mx-auto mb-3" />
+                            <p className="text-[var(--text-sub)] font-medium">Could not load news feed</p>
+                            <p className="text-[var(--text-muted)] text-sm mt-1">Please check the official GOV.UK website directly.</p>
                             <a
                                 href="https://www.gov.uk/browse/visas-immigration/student-visas"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 mt-4 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                                className="inline-flex items-center gap-2 mt-4 text-[var(--accent)] hover:opacity-80 text-sm font-medium transition-all"
                             >
                                 Visit GOV.UK <ExternalLink className="w-3.5 h-3.5" />
                             </a>
@@ -107,28 +86,28 @@ export default async function ResourcesPage() {
                                     href={item.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="glass rounded-xl p-5 glass-hover group flex flex-col"
+                                    className="glass rounded-xl p-5 glass-hover group flex flex-col border-[var(--border)]"
                                 >
                                     <div className="flex items-start justify-between gap-2 mb-2">
-                                        <span className="text-xs font-medium text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full">
+                                        <span className="text-xs font-bold text-[var(--accent)] bg-[var(--accent-soft)] px-2 py-0.5 rounded-full uppercase tracking-tighter">
                                             {item.category}
                                         </span>
-                                        <ExternalLink className="w-3.5 h-3.5 text-gray-600 group-hover:text-indigo-400 transition-colors flex-shrink-0 mt-0.5" />
+                                        <ExternalLink className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors flex-shrink-0 mt-0.5" />
                                     </div>
 
-                                    <h3 className="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors mb-2 line-clamp-2">
+                                    <h3 className="text-base font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors mb-2 line-clamp-2">
                                         {item.title}
                                     </h3>
 
                                     {item.summary && (
-                                        <p className="text-xs text-gray-500 line-clamp-3 mb-3 flex-1">
-                                            {item.summary.replace(/<[^>]+>/g, '')}
+                                        <p className="text-sm text-[var(--text-sub)] line-clamp-3 mb-3 flex-1">
+                                            {item.summary.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')}
                                         </p>
                                     )}
 
                                     {item.published && (
-                                        <div className="flex items-center gap-1.5 text-xs text-gray-600 mt-auto">
-                                            <Clock className="w-3 h-3" />
+                                        <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] mt-auto pt-3 border-t border-[var(--border)]">
+                                            <Clock className="w-3.5 h-3.5" />
                                             {format(new Date(item.published), 'dd MMM yyyy')}
                                         </div>
                                     )}

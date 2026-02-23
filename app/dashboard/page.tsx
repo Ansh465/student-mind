@@ -1,12 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
-import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { Navbar } from '@/components/Navbar'
-import { VisaCountdown } from '@/components/dashboard/VisaCountdown'
-import { WorkHourLog } from '@/components/dashboard/WorkHourLog'
-import { BudgetPlanner } from '@/components/dashboard/BudgetPlanner'
+import { DashboardGrid } from '@/components/dashboard/DashboardGrid'
 import { ReminderBanner } from '@/components/ReminderBanner'
-import { differenceInDays, startOfWeek, isAfter, isBefore, parseISO } from 'date-fns'
+import { startOfWeek } from 'date-fns'
 
 export const dynamic = 'force-dynamic'
 
@@ -61,7 +59,7 @@ export default async function DashboardPage() {
         .order('work_date', { ascending: false })
         .limit(10)
 
-    const weeklyHours = (weekLogs || []).reduce((sum, l) => sum + Number(l.hours), 0)
+    const weeklyHours = (weekLogs || []).reduce((sum: number, l: any) => sum + Number(l.hours), 0)
 
     // Fetch budget for current month
     const currentMonth = new Date().toISOString().slice(0, 7)
@@ -78,14 +76,6 @@ export default async function DashboardPage() {
         <div className="min-h-screen">
             <Navbar />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Header */}
-                <div className="mb-8">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text)]">
-                        Welcome back{profile?.full_name ? `, ${profile.full_name.split(' ')[0]}` : ''} 👋
-                    </h1>
-                    <p className="text-[var(--text-sub)] mt-1">Here's your survival overview for today.</p>
-                </div>
-
                 {/* Smart Reminders */}
                 <ReminderBanner
                     visaExpiryDate={profile?.visa_expiry_date ?? null}
@@ -93,35 +83,15 @@ export default async function DashboardPage() {
                     weeklyLimit={weeklyLimit}
                 />
 
-                {/* Dashboard Grid */}
-                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                    {/* Visa Countdown — full width on mobile, 1 col on xl */}
-                    <div className="xl:col-span-1">
-                        <VisaCountdown
-                            visaExpiryDate={profile?.visa_expiry_date ?? null}
-                            userId={user.id}
-                        />
-                    </div>
-
-                    {/* Work Hour Log — 2 cols on xl */}
-                    <div className="xl:col-span-2">
-                        <WorkHourLog
-                            userId={user.id}
-                            weeklyHours={weeklyHours}
-                            weeklyLimit={weeklyLimit}
-                            recentLogs={recentLogs ?? []}
-                        />
-                    </div>
-
-                    {/* Budget Planner — full width */}
-                    <div className="xl:col-span-3">
-                        <BudgetPlanner
-                            userId={user.id}
-                            currentMonth={currentMonth}
-                            budget={budget}
-                        />
-                    </div>
-                </div>
+                <DashboardGrid
+                    userId={user.id}
+                    profile={profile}
+                    weeklyHours={weeklyHours}
+                    weeklyLimit={weeklyLimit}
+                    recentLogs={recentLogs ?? []}
+                    budget={budget}
+                    currentMonth={currentMonth}
+                />
 
                 {/* Subtle Footer */}
                 <footer className="mt-16 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">

@@ -90,38 +90,38 @@ export function BudgetPlanner({ userId, currentMonth, budget: initialBudget }: B
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Summary Cards */}
-                <div className="space-y-3">
+                <div className="flex flex-col sm:grid sm:grid-cols-3 lg:flex lg:flex-col gap-3">
                     {/* Income */}
-                    <div className="rounded-xl p-4 bg-[var(--bg-raised)] border border-[var(--border)] glow-emerald transition-all duration-300">
-                        <div className="flex items-center gap-2 text-xs font-bold mb-2 uppercase tracking-tight" style={{ color: 'var(--emerald)' }}>
-                            <TrendingUp className="w-4 h-4" /> Monthly Income
+                    <div className="rounded-xl p-3 bg-[var(--bg-raised)] border border-[var(--border)] glow-emerald transition-all duration-300 flex flex-col justify-center min-h-[80px]">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold mb-1 uppercase tracking-tight" style={{ color: 'var(--emerald)' }}>
+                            <TrendingUp className="w-3.5 h-3.5" /> Income
                         </div>
                         <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-sub)] text-sm font-bold">£</span>
+                            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--text-sub)] text-xs font-bold">£</span>
                             <input
                                 type="number"
                                 value={form.income || ''}
                                 onChange={e => handleChange('income', e.target.value)}
                                 min="0" step="0.01" placeholder="0.00"
-                                className="input-theme w-full pl-7 pr-3 py-2.5 rounded-xl text-xl font-black"
+                                className="input-theme w-full pl-6 pr-2 py-1 rounded-lg text-lg font-black bg-transparent"
                             />
                         </div>
                     </div>
 
                     {/* Total Expenses */}
-                    <div className="rounded-xl p-4 bg-[var(--bg-raised)] border border-[var(--border)] glow-rose transition-all duration-300">
-                        <div className="flex items-center gap-2 text-xs font-bold mb-1 uppercase tracking-tight" style={{ color: 'var(--rose)' }}>
-                            <TrendingDown className="w-4 h-4" /> Total Expenses
+                    <div className="rounded-xl p-3 bg-[var(--bg-raised)] border border-[var(--border)] glow-rose transition-all duration-300 flex flex-col justify-center min-h-[80px]">
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold mb-0.5 uppercase tracking-tight" style={{ color: 'var(--rose)' }}>
+                            <TrendingDown className="w-3.5 h-3.5" /> Expenses
                         </div>
-                        <p className="text-3xl font-black text-[var(--text)] tracking-tighter">£{totalExpenses.toFixed(2)}</p>
+                        <p className="text-2xl font-black text-[var(--text)] tracking-tighter truncate leading-none mt-1">£{totalExpenses.toFixed(2)}</p>
                     </div>
 
                     {/* Remaining */}
-                    <div className={`rounded-xl p-4 border transition-all duration-500 ${remaining >= 0 ? 'bg-[var(--bg-raised)] border-[var(--border)] glow-indigo' : 'bg-[var(--bg-raised)] border-[var(--border)] glow-rose'}`}>
-                        <div className={`text-xs font-bold mb-1 uppercase tracking-tight`} style={{ color: remaining >= 0 ? 'var(--indigo)' : 'var(--red)' }}>
-                            {remaining >= 0 ? '✅ Net Balance' : '⚠️ Over Budget'}
+                    <div className={`rounded-xl p-3 border transition-all duration-500 min-h-[80px] flex flex-col justify-center ${remaining >= 0 ? 'bg-[var(--bg-raised)] border-[var(--border)] glow-indigo' : 'bg-[var(--bg-raised)] border-[var(--border)] glow-rose'}`}>
+                        <div className={`text-[10px] font-bold mb-0.5 uppercase tracking-tight`} style={{ color: remaining >= 0 ? 'var(--indigo)' : 'var(--red)' }}>
+                            {remaining >= 0 ? 'Balance' : 'Over'}
                         </div>
-                        <p className="text-3xl font-black text-[var(--text)] tracking-tighter">
+                        <p className="text-2xl font-black text-[var(--text)] tracking-tighter truncate leading-none mt-1">
                             £{Math.abs(remaining).toFixed(2)}
                         </p>
                     </div>

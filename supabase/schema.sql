@@ -10,23 +10,35 @@ create table if not exists public.profiles (
   visa_expiry_date date,
   weekly_hour_limit integer not null default 20,
   onboarding_complete boolean not null default false,
+  subscription_tier text not null default 'free' check (subscription_tier in ('free', 'pro')),
+  usage_limits jsonb not null default '{}'::jsonb,
+  is_admin boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-alter table public.profiles enable row level security;
+-- Helper function to check admin status without recursion
+create or replace function public.is_admin()
+returns boolean as $$
+begin
+  return exists (
+    select 1 from public.profiles 
+    where id = auth.uid() and is_admin = true
+  );
+end;
+$$ language plpgsql security definer;
 
-create policy "Users can view own profile"
+create policy "Profiles are viewable by self and admins"
   on public.profiles for select
-  using (auth.uid() = id);
+  using (auth.uid() = id or public.is_admin());
 
 create policy "Users can insert own profile"
   on public.profiles for insert
   with check (auth.uid() = id);
 
-create policy "Users can update own profile"
+create policy "Profiles are updatable by self and admins"
   on public.profiles for update
-  using (auth.uid() = id);
+  using (auth.uid() = id or public.is_admin());
 
 -- WORK LOGS
 create table if not exists public.work_logs (

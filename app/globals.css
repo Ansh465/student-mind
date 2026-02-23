@@ -398,3 +398,119 @@ body {
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+
+/* ─── Custom Landing Page Animations ────────────────────────────────────── */
+@keyframes slow-float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(20px, -20px) rotate(2deg);
+  }
+}
+
+@keyframes slow-float-delayed {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-20px, 15px) rotate(-1deg);
+  }
+}
+
+.animate-slow-float {
+  animation: slow-float 15s ease-in-out infinite;
+}
+
+.animate-slow-float-delayed {
+  animation: slow-float-delayed 18s ease-in-out infinite;
+}
+
+@keyframes fadeInUpExtended {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up-extended {
+  animation: fadeInUpExtended 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes floatExtended {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(0.5deg);
+  }
+}
+
+.animate-float-extended {
+  animation: floatExtended 6s ease-in-out infinite;
+}
+
+@keyframes pulse-ring-extended {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+    box-shadow: 0 0 40px var(--accent);
+  }
+}
+
+.animate-pulse-ring-extended {
+  animation: pulse-ring-extended 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 2;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-clamp: 3;
+}

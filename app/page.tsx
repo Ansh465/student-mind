@@ -10,6 +10,16 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
+  Briefcase,
+  ShieldCheck,
+  Languages,
+  FileCheck,
+  Home,
+  Target,
+  ClipboardList,
+  Sparkles,
+  Settings2,
+  LayoutDashboard
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
@@ -18,192 +28,312 @@ export default async function LandingPage() {
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-300 relative overflow-hidden">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-500 relative overflow-hidden font-sans">
 
-      {/* Background Blobs */}
-      <div className="blob w-[500px] h-[500px] -top-20 -left-20" style={{ background: 'var(--accent)', opacity: 0.15 }} />
-      <div className="blob w-[600px] h-[600px] top-[40%] -right-40" style={{ background: 'var(--indigo)', opacity: 0.1 }} />
-      <div className="blob w-[400px] h-[400px] bottom-0 left-[20%]" style={{ background: 'var(--rose)', opacity: 0.08 }} />
+      {/* ─── AMBIENT BACKGROUND ────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="blob w-[800px] h-[800px] -top-1/4 -left-1/4 animate-slow-float" style={{ background: 'var(--accent)', opacity: 0.12, filter: 'blur(120px)' }} />
+        <div className="blob w-[700px] h-[700px] top-[30%] -right-1/4 animate-slow-float-delayed" style={{ background: 'var(--indigo)', opacity: 0.08, filter: 'blur(100px)' }} />
+        <div className="blob w-[500px] h-[500px] -bottom-1/4 left-[10%]" style={{ background: 'var(--rose)', opacity: 0.06, filter: 'blur(80px)' }} />
+      </div>
 
       {/* ─── NAVBAR ─────────────────────────────────────── */}
-      <header className="navbar-glass sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
-            <span className="font-semibold text-[var(--text)] text-sm tracking-tight">Student Mind</span>
+      <header className="navbar-glass sticky top-0 z-50 border-b border-[var(--border)]/50">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2.5 group cursor-default">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 shadow-lg shadow-[var(--accent)]/20" style={{ background: 'var(--accent)' }}>
+              <GraduationCap className="w-5 h-5" style={{ color: 'var(--accent-fg)' }} />
+            </div>
+            <span className="font-bold text-[var(--text)] text-lg tracking-tight">Student Mind</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-[13px] text-[var(--text-sub)]">
-            <a href="#features" className="hover:text-[var(--text)] transition-colors font-medium">Features</a>
-            <a href="#how" className="hover:text-[var(--text)] transition-colors font-medium">How it works</a>
+
+          <nav className="hidden md:flex items-center gap-8 text-[13.5px] text-[var(--text-sub)]">
+            <a href="#features" className="hover:text-[var(--accent)] transition-colors font-semibold">Features</a>
+            <a href="#how" className="hover:text-[var(--accent)] transition-colors font-semibold">Process</a>
+            <a href="#ecosystem" className="hover:text-[var(--accent)] transition-colors font-semibold">Ecosystem</a>
           </nav>
-          <div className="flex items-center gap-3">
+
+          <div className="flex items-center gap-4">
             <ThemeToggle />
             {user ? (
-              <Link href="/dashboard" className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg btn-accent text-[13px] font-medium transition-colors">
-                Dashboard <ArrowRight className="w-3.5 h-3.5" />
+              <Link href="/dashboard" className="flex items-center gap-2 px-5 py-2 rounded-xl btn-accent text-[14px] font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0">
+                Dashboard <ArrowRight className="w-4 h-4" />
               </Link>
             ) : (
-              <>
-                <Link href="/login" className="px-3.5 py-1.5 rounded-lg text-[var(--text-sub)] hover:text-[var(--text)] text-[13px] font-medium transition-colors">
-                  Sign In
+              <div className="flex items-center gap-2">
+                <Link href="/login" className="hidden sm:block px-4 py-2 rounded-lg text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] text-[14px] font-semibold transition-all">
+                  Log In
                 </Link>
-                <Link href="/signup" className="px-3.5 py-1.5 rounded-lg btn-accent text-[13px] font-semibold transition-colors">
-                  Start Free
+                <Link href="/signup" className="flex items-center gap-1.5 px-5 py-2 rounded-xl btn-accent text-[14px] font-bold transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 glow-accent">
+                  Join Free
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
       </header>
 
       {/* ─── HERO ────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 pt-24 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="max-w-6xl mx-auto px-6 pt-28 pb-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-          {/* Left: Text */}
-          <div className="animate-fade-in-up">
-            <span className="tag-pill mb-6 bg-[var(--bg-raised)] border border-[var(--border)] text-[var(--text-sub)] inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-              Built for UK international students
-            </span>
-            <h1 className="text-[3.2rem] leading-[1.08] font-black tracking-tight text-[var(--text)] mt-4 mb-5">
-              Track your visa.<br />
-              Log your hours.<br />
-              <span className="bg-gradient-to-r from-[var(--accent)] via-[#ffa43a] to-[var(--rose)] bg-clip-text text-transparent">Stay in control.</span>
+          {/* Left: Content */}
+          <div className="animate-fade-in-up-extended">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[var(--accent-soft)] border border-[var(--accent)]/20 text-[var(--accent)] text-xs font-bold leading-none mb-8 tracking-wide uppercase">
+              <Sparkles className="w-3.5 h-3.5" />
+              Empowering International Students
+            </div>
+            <h1 className="text-[3.5rem] sm:text-[4.2rem] leading-[1.04] font-black tracking-tight text-[var(--text)] mb-8">
+              Success in the UK, <br />
+              <span className="bg-gradient-to-r from-[var(--accent)] via-[#ffa43a] to-[var(--rose)] bg-clip-text text-transparent">Reimagined.</span>
             </h1>
-            <p className="text-[var(--text-sub)] text-base leading-relaxed mb-8 max-w-sm">
-              Student Mind is the all-in-one dashboard that helps you manage your visa expiry, work hours, and budget — without the stress.
+            <p className="text-[var(--text-sub)] text-lg leading-relaxed mb-10 max-w-lg">
+              The only all-in-one OS for international student life. Take control of your visa compliance, track multiple jobs, manage academic goals, and unlock UK life hacks—built to thrive, not just survive.
             </p>
-            <div className="flex items-center gap-3">
-              <Link href="/signup" className="flex items-center gap-2 px-6 py-3 rounded-xl btn-accent font-bold transition-all hover:scale-[1.02] glow-accent">
-                Start Free <ArrowRight className="w-4 h-4" />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Link href="/signup" className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl btn-accent text-base font-black transition-all hover:scale-[1.03] shadow-xl shadow-[var(--accent)]/20 glow-accent">
+                Get Started Now <ArrowRight className="w-5 h-5" />
               </Link>
-              <a href="#how" className="flex items-center gap-1.5 px-6 py-3 rounded-xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] text-sm font-medium transition-all">
-                See How It Works
+              <a href="#features" className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] text-sm font-bold transition-all">
+                Explore Features
               </a>
+            </div>
+            <div className="mt-10 flex items-center gap-6 border-t border-[var(--border)]/50 pt-8">
+              <div className="flex -space-x-3">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-[var(--bg)] bg-[var(--bg-raised)] flex items-center justify-center overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-indigo-500 to-rose-400 opacity-60" />
+                  </div>
+                ))}
+              </div>
+              <p className="text-[var(--text-muted)] text-sm font-medium">
+                Joined by <span className="text-[var(--text)] font-bold">2,500+</span> ambitious students across the UK.
+              </p>
             </div>
           </div>
 
-          {/* Right: Dashboard UI preview */}
-          <div className="relative animate-float pointer-events-none select-none">
-            <div className="absolute inset-0 opacity-20 rounded-3xl blur-3xl" style={{ background: 'var(--accent)' }} />
-            <div className="relative border border-[var(--border)] rounded-2xl overflow-hidden bg-[var(--bg-input)] shadow-2xl">
-              {/* Header bar */}
-              <div className="px-5 py-3.5 border-b border-[var(--border)] flex items-center gap-2 bg-[var(--bg-raised)]">
-                <div className="w-2.5 h-2.5 rounded-full bg-[var(--red)] opacity-60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[var(--amber)] opacity-60" />
-                <div className="w-2.5 h-2.5 rounded-full bg-[var(--emerald)] opacity-60" />
-                <div className="ml-3 flex-1 h-5 rounded-md text-[10px] text-[var(--text-muted)] flex items-center px-2 bg-[var(--bg-input)]">
-                  student-survival-os.app/dashboard
+          {/* Right: Premium Mockup */}
+          <div className="relative animate-float-extended pt-10 lg:pt-0">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-[var(--accent)]/20 via-transparent to-[var(--indigo)]/20 rounded-[3rem] blur-3xl opacity-50" />
+
+            <div className="relative border border-[var(--border)] rounded-[2.5rem] bg-[var(--bg-card)] shadow-2xl overflow-hidden glass">
+              {/* Browser Bar */}
+              <div className="px-6 py-4 border-b border-[var(--border)] flex items-center justify-between bg-[var(--bg-raised)]/80 backdrop-blur-md">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                 </div>
+                <div className="bg-[var(--bg-input)] h-6 px-4 rounded-lg flex items-center text-[10px] text-[var(--text-muted)] font-medium border border-[var(--border)]">
+                  studentmind.io/dashboard
+                </div>
+                <div className="w-12 h-1 rounded-full bg-[var(--border)]" />
               </div>
-              <div className="p-5 grid grid-cols-2 gap-3">
-                {/* Visa card */}
-                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-xl p-4 glow-emerald">
-                  <div className="text-[10px] text-[var(--text-muted)] font-medium uppercase tracking-widest mb-3">Visa Status</div>
-                  <div className="flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full flex items-center justify-center border-2 border-[var(--emerald)] bg-radial from-[var(--emerald-soft)] to-transparent">
-                      <div className="text-center">
-                        <div className="text-2xl font-black text-[var(--emerald)]">187</div>
-                        <div className="text-[9px] text-[var(--text-muted)]">days</div>
-                      </div>
+
+              {/* Mockup Dashboard Content */}
+              <div className="p-6 grid grid-cols-2 gap-4">
+                {/* News Feed / Resource Hub Item */}
+                <div className="col-span-2 border border-[var(--border)] bg-[var(--bg-raised)] rounded-2xl p-4 shadow-sm hover:scale-[1.01] transition-transform duration-300">
+                  <div className="flex items-center justify-between mb-3 leading-none">
+                    <div className="flex items-center gap-2">
+                      <Newspaper className="w-3.5 h-3.5 text-[var(--accent)]" />
+                      <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-sub)]">Visa Updates</span>
+                    </div>
+                    <span className="text-[9px] text-[var(--accent)] font-bold px-1.5 py-0.5 rounded-full bg-[var(--accent-soft)]">Live</span>
+                  </div>
+                  <div className="text-[11px] font-bold text-[var(--text)] mb-1">New Graduate Route changes announced...</div>
+                  <div className="h-2 w-full bg-[var(--bg-input)] rounded-full overflow-hidden">
+                    <div className="h-full bg-[var(--accent)]" style={{ width: '45%' }} />
+                  </div>
+                </div>
+
+                {/* Job Tracker Mock */}
+                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-4 shadow-sm group">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Briefcase className="w-4 h-4 text-emerald-500" />
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] group-hover:text-emerald-500 transition-colors">Job Tracker</span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px] font-bold border-b border-[var(--border)] pb-2">
+                      <span>Tech Intern</span>
+                      <span className="text-emerald-500">Applied</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] font-bold">
+                      <span>Store Asst</span>
+                      <span className="text-amber-500">Interview</span>
                     </div>
                   </div>
-                  <div className="mt-3 text-center text-[10px] font-bold py-0.5 rounded-full" style={{ background: 'var(--emerald-soft)', color: 'var(--emerald)' }}>Valid</div>
                 </div>
-                {/* Work hours card */}
-                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-xl p-4 glow-amber">
-                  <div className="text-[10px] text-[var(--text-muted)] font-medium uppercase tracking-widest mb-3">Work Hours</div>
-                  <div className="text-xl font-black text-[var(--text)] mb-1">14.5<span className="text-xs text-[var(--text-muted)] font-normal"> / 20h</span></div>
-                  <div className="w-full h-1.5 rounded-full mb-2 bg-[var(--bg-input)]">
-                    <div className="h-full rounded-full bg-gradient-to-r from-[var(--amber)] to-[#fbbf24]" style={{ width: '72%' }} />
+
+                {/* Checklist Mock */}
+                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-4 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3 leading-none">
+                    <ClipboardList className="w-3.5 h-3.5 text-indigo-500" />
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Landing</span>
                   </div>
-                  <div className="text-[9px] text-[var(--amber)] font-medium">5.5h remaining</div>
-                  <div className="mt-2.5 space-y-1">
-                    {[['Mon', '4h'], ['Tue', '6h'], ['Wed', '4.5h']].map(([d, h]) => (
-                      <div key={d} className="flex justify-between text-[9px] text-[var(--text-muted)]">
-                        <span>{d}</span><span style={{ color: '#818cf8' }}>{h}</span>
+                  <div className="space-y-1.5">
+                    {[1, 1, 0].map((c, i) => (
+                      <div key={i} className="flex items-center gap-2 opacity-80">
+                        <CheckCircle2 className={`w-3.5 h-3.5 ${c ? 'text-emerald-500' : 'text-[var(--text-muted)]'}`} />
+                        <div className={`h-1.5 rounded-full bg-[var(--border)] flex-1 overflow-hidden`}>
+                          <div className={`h-full ${c ? 'bg-emerald-500' : ''}`} style={{ width: c ? '100%' : '0%' }} />
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                {/* Budget card – full width */}
-                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-xl p-4 col-span-2 glow-indigo">
-                  <div className="text-[10px] text-[var(--text-muted)] font-medium uppercase tracking-widest mb-3">Budget — Feb 2026</div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[['Income', '£1,500', 'var(--emerald)', 'var(--emerald-soft)'],
-                    ['Expenses', '£1,100', 'var(--red)', 'var(--red-soft)'],
-                    ['Remaining', '£400', 'var(--indigo)', 'var(--indigo-soft)']].map(([l, v, c, bg]) => (
-                      <div key={l} className="rounded-lg p-2.5 border border-[var(--border)]" style={{ background: bg }}>
-                        <div className="text-[9px] font-bold" style={{ color: c }}>{l}</div>
-                        <div className="text-sm font-bold text-[var(--text)]">{v}</div>
-                      </div>
-                    ))}
-                  </div>
+
+                {/* Bottom Stats Grid */}
+                <div className="col-span-2 grid grid-cols-3 gap-3">
+                  {[
+                    { label: 'Work', val: '14.5/20h', col: 'text-amber-500', bg: 'bg-amber-500/10' },
+                    { label: 'Visa', val: '84 Days', col: 'text-rose-500', bg: 'bg-rose-500/10' },
+                    { label: 'Earnings', val: '£245.50', col: 'text-emerald-500', bg: 'bg-emerald-500/10' }
+                  ].map(st => (
+                    <div key={st.label} className={`p-2.5 rounded-xl border border-[var(--border)] ${st.bg} flex flex-col gap-0.5`}>
+                      <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-tight">{st.label}</span>
+                      <span className={`text-[12px] font-black ${st.col}`}>{st.val}</span>
+                    </div>
+                  ))}
                 </div>
+              </div>
+
+              {/* Bottom Decorative Bar */}
+              <div className="h-10 bg-[var(--bg-raised)]/50 flex items-center px-6 gap-4 border-t border-[var(--border)]">
+                <LayoutDashboard className="w-4 h-4 text-[var(--accent)]" />
+                <Newspaper className="w-4 h-4 text-[var(--text-muted)]" />
+                <Settings2 className="w-4 h-4 text-[var(--text-muted)]" />
+                <div className="flex-1" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[var(--accent)] to-[var(--indigo)]" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── HOW IT WORKS ────────────────────────────────── */}
+      {/* ─── PROCESS / STRATEGY ─────────────────────────── */}
       <section id="how" className="max-w-6xl mx-auto px-6 py-24 border-t border-[var(--border)]">
-        <div className="mb-16">
-          <span className="tag-pill bg-[var(--bg-raised)] border border-[var(--border)] text-[var(--text-sub)] px-3 py-1 rounded-full text-xs font-semibold">How it works</span>
-          <h2 className="text-3xl font-black text-[var(--text)] tracking-tight mt-3">Simple steps. Real results.</h2>
-          <p className="text-[var(--text-sub)] text-sm mt-2 max-w-sm">Up and running in under 2 minutes. No complex setup.</p>
+        <div className="text-center mb-20 animate-fade-in">
+          <span className="px-3.5 py-1.5 rounded-full bg-[var(--bg-raised)] border border-[var(--border)] text-[var(--text-sub)] text-xs font-bold uppercase tracking-widest">Process</span>
+          <h2 className="text-4xl font-black text-[var(--text)] tracking-tight mt-6">Optimized for Simplicity.</h2>
+          <p className="text-[var(--text-sub)] text-base mt-4 max-w-lg mx-auto leading-relaxed">Everything you need to navigate UK student life, organized into four specialized power-modes.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {[
-            { n: '01', t: 'Create account', d: 'Sign up with your email. No documents, no credit card. Takes 30 seconds.', icon: 'you@university.ac.uk' },
-            { n: '02', t: 'Visa details', d: 'Tell us your visa expiry date and your weekly work hour limit (20h term-time).', icon: '2027-01-15' },
-            { n: '03', t: 'Log your work', d: 'Add work shifts in seconds. Track monthly income and expenses by category.', icon: 'Mon, 23 Feb' },
-            { n: '04', t: 'Get smart alerts', d: 'Reminders when your visa is near expiry or you\'re approaching your weekly limit.', icon: <Bell className="w-4 h-4" /> }
+            { n: '01', t: 'Compliance First', d: 'Set your visa expiry and weekly limits. We handle the countdown so you never miss a legal threshold.', icon: ShieldCheck, color: 'text-emerald-500' },
+            { n: '02', t: 'Earnings Engine', d: 'Track multiple part-time jobs and pay rates with automated weekly earning estimations.', icon: PiggyBank, color: 'text-amber-500' },
+            { n: '03', t: 'Career Command', d: 'Centralize your job applications and deadlines. Stay reactive to interview invites and follow-ups.', icon: Briefcase, color: 'text-indigo-500' },
+            { n: '04', t: 'Admin Assistant', d: 'Master the UK Bureaucracy. Complete your GP, NI Number, and BRP registration via curated checklists.', icon: ClipboardList, color: 'text-[var(--accent)]' }
           ].map((s, i) => (
-            <div key={i} className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-6 relative overflow-hidden group hover:border-[var(--border-md)] transition-all">
-              <div className="text-4xl font-black opacity-[0.03] absolute -top-1 -right-1 group-hover:scale-110 transition-transform select-none">
-                {s.n}
+            <div key={i} className="relative group p-8 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] hover:bg-[var(--bg-raised)] transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--accent)]/5 hover:-translate-y-2 overflow-hidden">
+              <div className="absolute -top-4 -right-4 text-9xl font-black text-[var(--text)]/5 group-hover:scale-110 transition-transform duration-700 pointer-events-none">{s.n}</div>
+              <div className={`w-12 h-12 rounded-2xl ${s.color} bg-current/10 flex items-center justify-center mb-6`}>
+                <s.icon className="w-6 h-6" />
               </div>
-              <div className="text-[var(--indigo)] font-black text-xs uppercase tracking-widest mb-3">{s.n}</div>
-              <h3 className="text-lg font-bold text-[var(--text)] mb-2">{s.t}</h3>
-              <p className="text-[var(--text-sub)] text-sm leading-relaxed mb-6">{s.d}</p>
-              <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-raised)] p-3 shadow-inner">
-                <div className="h-4 w-full bg-[var(--bg-input)] rounded mb-2 overflow-hidden">
-                  <div className="h-full bg-[var(--accent)]" style={{ width: i === 0 ? '100%' : i === 1 ? '60%' : i === 2 ? '80%' : '30%' }} />
-                </div>
-                <div className="text-[10px] text-[var(--text-muted)] font-medium">{typeof s.icon === 'string' ? s.icon : 'Smart Alert Active'}</div>
+              <h3 className="text-xl font-bold text-[var(--text)] mb-3">{s.t}</h3>
+              <p className="text-[var(--text-sub)] text-[15px] leading-relaxed mb-8">{s.d}</p>
+              <div className="h-1.5 w-full bg-[var(--bg-input)] rounded-full overflow-hidden">
+                <div className={`h-full bg-gradient-to-r from-[var(--indigo)] to-[var(--rose)]`} style={{ width: i === 0 ? '100%' : i === 1 ? '75%' : i === 2 ? '50%' : '25%' }} />
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ─── FEATURES ─────────────────────────────────────── */}
-      <section id="features" className="py-24 px-6 border-t border-[var(--border)] bg-[var(--bg-raised)]/30">
+      {/* ─── ECOSYSTEM HIGHLIGHTS ────────────────────────── */}
+      <section id="ecosystem" className="py-24 px-6 border-t border-[var(--border)] bg-[var(--bg-raised)]/20">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="tag-pill bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-sub)] px-3 py-1 rounded-full text-xs font-semibold">Features</span>
-            <h2 className="text-3xl font-black text-[var(--text)] tracking-tight mt-3">Why choose Student Mind</h2>
-            <p className="text-[var(--text-sub)] text-sm mt-2">Because staying compliant should be as simple as using an app.</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-6 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] aspect-square flex flex-col justify-between group hover:border-[var(--accent)] transition-all overflow-hidden shrink-0">
+                <LayoutDashboard className="w-8 h-8 text-[var(--accent)] group-hover:scale-110 transition-transform" />
+                <div>
+                  <h4 className="font-bold text-lg mb-1 leading-tight text-[var(--text)]">Dashboard Editor</h4>
+                  <p className="text-xs text-[var(--text-muted)] line-clamp-2">Reorder components with drag & drop reordering.</p>
+                </div>
+              </div>
+              <div className="p-6 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] aspect-square flex flex-col justify-between mt-8 group hover:border-emerald-500 transition-all overflow-hidden shrink-0">
+                <Newspaper className="w-8 h-8 text-emerald-500 group-hover:scale-110 transition-transform" />
+                <div>
+                  <h4 className="font-bold text-lg mb-1 leading-tight text-[var(--text)]">Resource Hub</h4>
+                  <p className="text-xs text-[var(--text-muted)] line-clamp-2">Official GOV.UK news and life-hacks for the UK.</p>
+                </div>
+              </div>
+              <div className="p-6 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] aspect-square flex flex-col justify-between group hover:border-amber-500 transition-all overflow-hidden shrink-0">
+                <Settings2 className="w-8 h-8 text-amber-500 group-hover:scale-110 transition-transform" />
+                <div>
+                  <h4 className="font-bold text-lg mb-1 leading-tight text-[var(--text)]">Settings Hub</h4>
+                  <p className="text-xs text-[var(--text-muted)] line-clamp-2">Centralized controls for your entire digital OS.</p>
+                </div>
+              </div>
+              <div className="p-6 rounded-[2rem] border border-[var(--border)] bg-[var(--bg-card)] aspect-square flex flex-col justify-between mt-8 group hover:border-rose-500 transition-all overflow-hidden shrink-0">
+                <Target className="w-8 h-8 text-rose-500 group-hover:scale-110 transition-transform" />
+                <div>
+                  <h4 className="font-bold text-lg mb-1 leading-tight text-[var(--text)]">Goal Tracker</h4>
+                  <p className="text-xs text-[var(--text-muted)] line-clamp-2">Academic deadline priority with live countdowns.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="animate-fade-in-right">
+              <span className="tag-pill bg-[var(--accent-soft)] text-[var(--accent)] px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest">Ecosystem</span>
+              <h2 className="text-[3rem] leading-[1.1] font-black text-[var(--text)] tracking-tight mt-6 mb-8">Personalized to your unique path.</h2>
+              <p className="text-[var(--text-sub)] text-lg leading-relaxed mb-8">
+                Your needs change as you move through your studies. Our modular dashboard adapts with you. Use the Dashboard Customizer to toggle features you need and hide what you don't.
+              </p>
+              <ul className="space-y-4 mb-10">
+                {[
+                  'Drag and drop reordering for tiles',
+                  'One-click visibility toggles',
+                  'Theme-aware visuals (Light/Dark)',
+                  'Centralized profile management'
+                ].map(t => (
+                  <li key={t} className="flex items-center gap-3 font-semibold text-[var(--text)]">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                    </div>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/signup" className="inline-flex items-center gap-2 group text-[var(--accent)] font-bold text-lg transition-all hover:gap-4">
+                Build your OS now <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FEATURES GRID ──────────────────────────────── */}
+      <section id="features" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl font-black text-[var(--text)] tracking-tight mb-4">Every Tool. One Destination.</h2>
+            <p className="text-[var(--text-sub)] font-medium max-w-lg mx-auto leading-relaxed">The Student Mind ecosystem covers every pillar of international student success.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
-              { icon: Shield, color: 'var(--emerald)', bg: 'var(--emerald-soft)', title: 'Visa Countdown', desc: 'Colour-coded circular countdown. Alerts at 90, 60, and 30 days before expiry.' },
-              { icon: Clock, color: 'var(--indigo)', bg: 'var(--indigo-soft)', title: 'Work Hour Log', desc: 'Log shifts in seconds. See your weekly total vs. legal limit with a live progress bar.' },
-              { icon: PiggyBank, color: 'var(--red)', bg: 'var(--red-soft)', title: 'Budget Planner', desc: 'Set income, track rent/food/transport. Know your remaining balance every month.' },
-              { icon: Bell, color: 'var(--amber)', bg: 'var(--amber-soft)', title: 'Smart Reminders', desc: 'Automatic banner alerts for visa and work hour thresholds. Stay compliant passively.' },
-              { icon: Newspaper, color: '#3b82f6', bg: 'rgba(59,130,246,0.1)', title: 'GOV.UK Resources', desc: 'Curated links to visa checks, renewal guides, NMW rates, and regulated advisors.' },
-              { icon: CheckCircle2, color: '#a855f7', bg: 'rgba(168,85,247,0.1)', title: 'Personalised Setup', desc: 'Your visa date, your work limit, your rules. Onboarding takes 60 seconds.' },
-            ].map(({ icon: Icon, color, bg, title, desc }) => (
-              <div key={title} className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-6 group hover:shadow-xl transition-all">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-105" style={{ background: bg }}>
-                  <Icon className="w-6 h-6" style={{ color: color }} />
+              { icon: Shield, col: 'text-emerald-500', bg: 'bg-emerald-500/10', t: 'Visa Pulse', d: '90, 60, 30-day countdown triggers.' },
+              { icon: Clock, col: 'text-indigo-500', bg: 'bg-indigo-500/10', t: 'Multi-Job Log', d: 'Weekly limits & automatic payouts.' },
+              { icon: PiggyBank, col: 'text-rose-500', bg: 'bg-rose-500/10', t: 'Budget Master', d: 'Track rent, groceries, and savings.' },
+              { icon: ShieldCheck, col: 'text-amber-500', bg: 'bg-amber-500/10', t: 'Secure Vault', d: 'Expiry alerts for BRP & Passport.' },
+              { icon: Briefcase, col: 'text-sky-500', bg: 'bg-sky-500/10', t: 'Job Tracker', d: 'Manage Graduate Route applications.' },
+              { icon: ClipboardList, col: 'text-purple-500', bg: 'bg-purple-500/10', t: 'UK Checklist', d: 'BRP, NI Number, and GP registration.' },
+              { icon: Newspaper, col: 'text-emerald-500', bg: 'bg-emerald-500/10', t: 'Live News', d: 'Direct GOV.UK student visa feeds.' },
+              { icon: Target, col: 'text-rose-500', bg: 'bg-rose-500/10', t: 'Assignment Log', d: 'Priority-based deadline tracking.' },
+              { icon: Home, col: 'text-indigo-500', bg: 'bg-indigo-500/10', t: 'Housing Log', d: 'Rent receipts & maintenance trail.' },
+              { icon: Languages, col: 'text-orange-500', bg: 'bg-orange-500/10', t: 'Culture Hack', d: 'British slang & essential etiquette.' },
+              { icon: Sparkles, col: 'text-amber-500', bg: 'bg-amber-500/10', t: 'Life Hacks', d: 'Pro tips for saving money in UK.' },
+              { icon: Settings2, col: 'text-slate-500', bg: 'bg-slate-500/10', t: 'Settings Hub', d: 'Comprehensive dashboard control.' },
+            ].map(({ icon: Icon, col, bg, t, d }) => (
+              <div key={t} className="p-6 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] group hover:scale-[1.02] hover:shadow-xl hover:border-[var(--accent)]/30 transition-all">
+                <div className={`w-12 h-12 rounded-2xl ${bg} ${col} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-[var(--text)] text-sm mb-2">{title}</h3>
-                <p className="text-[var(--text-sub)] text-[13px] leading-relaxed">{desc}</p>
+                <h3 className="font-bold text-[var(--text)] text-base mb-2">{t}</h3>
+                <p className="text-[var(--text-muted)] text-[13px] leading-relaxed line-clamp-2">{d}</p>
               </div>
             ))}
           </div>
@@ -211,42 +341,67 @@ export default async function LandingPage() {
       </section>
 
       {/* ─── FINAL CTA ────────────────────────────────────── */}
-      <section className="py-28 px-6 border-t border-[var(--border)]">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8 animate-pulse-ring" style={{ background: 'var(--accent)' }}>
-            <GraduationCap className="w-8 h-8" style={{ color: 'var(--accent-fg)' }} />
+      <section className="py-32 px-6 border-t border-[var(--border)] bg-gradient-to-b from-transparent to-[var(--bg-raised)]/50">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="w-20 h-20 rounded-[2rem] flex items-center justify-center mx-auto mb-10 transition-transform hover:rotate-6 duration-300 shadow-2xl shadow-[var(--accent)]/30 animate-pulse-ring-extended" style={{ background: 'var(--accent)' }}>
+            <GraduationCap className="w-10 h-10" style={{ color: 'var(--accent-fg)' }} />
           </div>
-          <h2 className="text-4xl font-black text-[var(--text)] tracking-tight mb-4">
-            Ready to take control?
+          <h2 className="text-[3.5rem] leading-[1.1] font-black text-[var(--text)] tracking-tight mb-6">
+            One platform. <br />Infinite Possibilities.
           </h2>
-          <p className="text-[var(--text-sub)] text-base mb-10 max-w-sm mx-auto leading-relaxed">
-            Join international students across the UK who use Student Mind to stay organised and compliant.
+          <p className="text-[var(--text-sub)] text-xl mb-12 max-w-md mx-auto leading-relaxed">
+            Take the stress out of UK life and join the Student Mind ecosystem today.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/signup" className="flex items-center gap-2 px-8 py-4 rounded-xl btn-accent font-bold transition-all hover:scale-[1.05] shadow-lg shadow-[var(--accent)]/20">
-              Create Free Account <ArrowUpRight className="w-4 h-4" />
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4">
+            <Link href="/signup" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl btn-accent text-lg font-black transition-all hover:scale-[1.05] shadow-2xl shadow-[var(--accent)]/20 glow-accent">
+              Unlock Your Dashboard <ArrowUpRight className="w-5 h-5" />
             </Link>
-            <Link href="/login" className="flex items-center gap-2 px-8 py-4 rounded-xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-card)] font-semibold transition-all">
-              Sign In
+            <Link href="/login" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-card)] text-base font-bold transition-all">
+              Already a Member?
             </Link>
           </div>
-          <p className="text-[var(--text-muted)] text-xs mt-8">Free to use · UK GDPR Compliant · 2-minute setup</p>
+          <p className="text-[var(--text-muted)] text-[13px] mt-10 font-medium">Free forever · No credit card required · GDPR Compliant</p>
         </div>
       </section>
 
       {/* ─── FOOTER ───────────────────────────────────────── */}
-      <footer className="border-t border-[var(--border)] py-12 px-6 bg-[var(--bg-raised)]/50">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-2.5 mb-4 md:mb-0">
-            <img src="/logo.png" alt="Logo" className="w-7 h-7 object-contain" />
-            <span className="font-bold text-[var(--text)] text-sm">Student Mind</span>
+      <footer className="border-t border-[var(--border)] pt-20 pb-12 px-6 bg-[var(--bg-card)]/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center gap-2.5 mb-6">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent)' }}>
+                  <GraduationCap className="w-4 h-4" style={{ color: 'var(--accent-fg)' }} />
+                </div>
+                <span className="font-black text-[var(--text)] text-lg tracking-tight">Student Mind</span>
+              </div>
+              <p className="text-[var(--text-muted)] text-[15px] leading-relaxed max-w-sm">The first specialized digital operating system for international students in the UK. Designed for success, built for compliance.</p>
+            </div>
+            <div>
+              <h5 className="font-black text-[var(--text)] text-sm mb-6 uppercase tracking-widest">Platform</h5>
+              <ul className="space-y-4 text-sm text-[var(--text-muted)] font-bold">
+                <li><a href="#features" className="hover:text-[var(--accent)] transition-colors">Features</a></li>
+                <li><a href="#how" className="hover:text-[var(--accent)] transition-colors">How it Works</a></li>
+                <li><a href="/dashboard" className="hover:text-[var(--accent)] transition-colors">Dashboard</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-black text-[var(--text)] text-sm mb-6 uppercase tracking-widest">Legal</h5>
+              <ul className="space-y-4 text-sm text-[var(--text-muted)] font-bold">
+                <li><Link href="/terms" className="hover:text-[var(--accent)] transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="hover:text-[var(--accent)] transition-colors">Privacy Policy</Link></li>
+                <li><a href="mailto:support@studentmind.io" className="hover:text-[var(--accent)] transition-colors">Support</a></li>
+              </ul>
+            </div>
           </div>
-          <div className="flex items-center gap-8 text-[var(--text-muted)] text-xs font-medium">
-            <Link href="/terms" className="hover:text-[var(--text)] transition-colors">Terms of Service</Link>
-            <Link href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy Policy</Link>
-            <a href="mailto:support@studentsurvivalos.app" className="hover:text-[var(--text)] transition-colors">Support</a>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-[var(--border)]/30 text-[var(--text-muted)] text-[13px] font-bold">
+            <p>© 2026 Student Mind. Handcrafted for International Students.</p>
+            <div className="flex items-center gap-8">
+              <a href="#" className="hover:text-[var(--text)] transition-colors tracking-tight">Twitter</a>
+              <a href="#" className="hover:text-[var(--text)] transition-colors tracking-tight">Discord</a>
+              <a href="#" className="hover:text-[var(--text)] transition-colors tracking-tight">GitHub</a>
+            </div>
           </div>
-          <p className="text-[var(--text-muted)] text-xs">© 2026 Student Mind. Built for Students.</p>
         </div>
       </footer>
 

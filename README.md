@@ -5,8 +5,17 @@ Student Mind is an all-in-one personal dashboard designed for international stud
 ## Core Features
 
 - **Visa Compliance Tracking**: Real-time countdown to your visa expiry with status-aware alerts.
-- **Work Hour Log**: Track your weekly work hours against the 20-hour (or custom) student visa limit. Includes visual warnings when approaching limits.
-- **Budget Planner**: Manage monthly income and categorized expenses (Rent, Food, Transport, etc.) with a clear visual breakdown of remaining funds.
+- **Work Hour Log & Multi-Job Support**: Track weekly work hours across multiple jobs with custom pay rates and automated earnings calculation. Features visual warnings when approaching limits.
+- **Job Application Tracker**: Manage your career journey by tracking job applications, statuses, and links in one place.
+- **"Landing in UK" Checklist**: A comprehensive admin guide for international students (BRP, NI Number, GP registration, etc.).
+- **Document Vault & Expire-Alerts**: Localized, secure storage for Passport, BRP, and other ID details with expiry tracking.
+- **UK "Survival" Culture Guide**: Interactive guide to British slang, etiquette, and measurement conversions.
+- **CV & Job Prep Checklist**: Tailored checklists to ensure your CV meets UK employer standards.
+- **Resume ATS Scanner**: Instant feedback on your resume matching a job description, featuring keyword gap analysis and bullet point audits.
+- **Accommodation Tracker**: Manage rent payments, landlord contacts, and maintenance paper trails.
+- **Academic Goal Tracker**: Keep tabs on assignment deadlines with priority-based tracking and countdowns.
+- **Local Resources**: Curated "Life Hacks" and essential links for health, travel, and student discounts.
+- **Budget Planner**: Manage monthly income and categorized expenses with a clear visual breakdown of remaining funds.
 - **Modern UI/UX**: High-fidelity design system featuring dynamic dark/light modes, premium gradients, and hardware-accelerated "glow" effects.
 
 ## Tech Stack
