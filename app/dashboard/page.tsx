@@ -125,7 +125,7 @@ export default async function DashboardPage() {
 
                 {/* Subtle Footer */}
                 <footer className="mt-16 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
-                    <p>© 2026 Student Survival OS. All rights reserved.</p>
+                    <p>© 2026 Student Mind. All rights reserved.</p>
                     <div className="flex items-center gap-6">
                         <Link href="/terms" className="hover:text-[var(--text)] transition-colors">Terms of Service</Link>
                         <Link href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy Policy</Link>

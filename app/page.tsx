@@ -32,7 +32,7 @@ export default async function LandingPage() {
             <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent)' }}>
               <GraduationCap className="w-4 h-4" style={{ color: 'var(--accent-fg)' }} />
             </div>
-            <span className="font-semibold text-[var(--text)] text-sm tracking-tight">Student Survival OS</span>
+            <span className="font-semibold text-[var(--text)] text-sm tracking-tight">Student Mind</span>
           </div>
           <nav className="hidden md:flex items-center gap-6 text-[13px] text-[var(--text-sub)]">
             <a href="#features" className="hover:text-[var(--text)] transition-colors font-medium">Features</a>
@@ -74,7 +74,7 @@ export default async function LandingPage() {
               <span className="bg-gradient-to-r from-[var(--accent)] via-[#ffa43a] to-[var(--rose)] bg-clip-text text-transparent">Stay in control.</span>
             </h1>
             <p className="text-[var(--text-sub)] text-base leading-relaxed mb-8 max-w-sm">
-              Student Survival OS is the all-in-one dashboard that helps you manage your visa expiry, work hours, and budget — without the stress.
+              Student Mind is the all-in-one dashboard that helps you manage your visa expiry, work hours, and budget — without the stress.
             </p>
             <div className="flex items-center gap-3">
               <Link href="/signup" className="flex items-center gap-2 px-6 py-3 rounded-xl btn-accent font-bold transition-all hover:scale-[1.02] glow-accent">
@@ -187,7 +187,7 @@ export default async function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="tag-pill bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-sub)] px-3 py-1 rounded-full text-xs font-semibold">Features</span>
-            <h2 className="text-3xl font-black text-[var(--text)] tracking-tight mt-3">Why choose Student Survival OS</h2>
+            <h2 className="text-3xl font-black text-[var(--text)] tracking-tight mt-3">Why choose Student Mind</h2>
             <p className="text-[var(--text-sub)] text-sm mt-2">Because staying compliant should be as simple as using an app.</p>
           </div>
 
@@ -222,7 +222,7 @@ export default async function LandingPage() {
             Ready to take control?
           </h2>
           <p className="text-[var(--text-sub)] text-base mb-10 max-w-sm mx-auto leading-relaxed">
-            Join international students across the UK who use Student Survival OS to stay organised and compliant.
+            Join international students across the UK who use Student Mind to stay organised and compliant.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/signup" className="flex items-center gap-2 px-8 py-4 rounded-xl btn-accent font-bold transition-all hover:scale-[1.05] shadow-lg shadow-[var(--accent)]/20">
@@ -243,14 +243,14 @@ export default async function LandingPage() {
             <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: 'var(--accent)' }}>
               <GraduationCap className="w-3.5 h-3.5" style={{ color: 'var(--accent-fg)' }} />
             </div>
-            <span className="font-bold text-[var(--text)] text-sm">Student Survival OS</span>
+            <span className="font-bold text-[var(--text)] text-sm">Student Mind</span>
           </div>
           <div className="flex items-center gap-8 text-[var(--text-muted)] text-xs font-medium">
             <Link href="/terms" className="hover:text-[var(--text)] transition-colors">Terms of Service</Link>
             <Link href="/privacy" className="hover:text-[var(--text)] transition-colors">Privacy Policy</Link>
             <a href="mailto:support@studentsurvivalos.app" className="hover:text-[var(--text)] transition-colors">Support</a>
           </div>
-          <p className="text-[var(--text-muted)] text-xs">© 2026 Student Survival OS. Built for Students.</p>
+          <p className="text-[var(--text-muted)] text-xs">© 2026 Student Mind. Built for Students.</p>
         </div>
       </footer>
 

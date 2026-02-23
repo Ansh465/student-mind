@@ -76,7 +76,7 @@ export default function SignupPage() {
                         <GraduationCap className="w-8 h-8" style={{ color: 'var(--accent-fg)' }} />
                     </div>
                     <h1 className="text-3xl font-bold text-[var(--text)]">Get started</h1>
-                    <p className="text-[var(--text-sub)] mt-2">Create your Student Survival OS account</p>
+                    <p className="text-[var(--text-sub)] mt-2">Create your Student Mind account</p>
                 </div>
 
                 <div className="card rounded-2xl p-8">
@@ -129,7 +129,7 @@ export default function SignupPage() {
                                     {consentLegal ? <CheckSquare className="w-5 h-5" /> : <Square className="w-5 h-5" />}
                                 </button>
                                 <span className="text-xs text-[var(--text-sub)] leading-snug">
-                                    I understand that Student Survival OS is <strong className="text-[var(--text)]">not a legal service</strong>. I am responsible for verifying my visa compliance with official UK Government sources and a qualified immigration adviser. <span className="text-[var(--red)]">*</span>
+                                    I understand that Student Mind is <strong className="text-[var(--text)]">not a legal service</strong>. I am responsible for verifying my visa compliance with official UK Government sources and a qualified immigration adviser. <span className="text-[var(--red)]">*</span>
                                 </span>
                             </label>
 

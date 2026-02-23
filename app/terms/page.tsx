@@ -3,8 +3,8 @@ import { GraduationCap, ArrowLeft } from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 export const metadata = {
-    title: 'Terms of Service | Student Survival OS',
-    description: 'Terms of Service for Student Survival OS — please read carefully before using the application.',
+    title: 'Terms of Service | Student Mind',
+    description: 'Terms of Service for Student Mind — please read carefully before using the application.',
 }
 
 export default function TermsPage() {
@@ -21,7 +21,7 @@ export default function TermsPage() {
                             <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: 'var(--accent)' }}>
                                 <GraduationCap className="w-3.5 h-3.5" style={{ color: 'var(--accent-fg)' }} />
                             </div>
-                            <span className="text-sm font-semibold text-[var(--text)]">Student Survival OS</span>
+                            <span className="text-sm font-semibold text-[var(--text)]">Student Mind</span>
                         </div>
                         <ThemeToggle />
                     </div>
@@ -39,7 +39,7 @@ export default function TermsPage() {
                 <div className="rounded-2xl border p-6 mb-10" style={{ background: 'var(--amber-soft)', borderColor: 'var(--amber)' }}>
                     <p className="text-sm font-bold mb-1" style={{ color: 'var(--amber)' }}>⚠ Important — Please Read Before Using This Service</p>
                     <p className="text-sm leading-relaxed" style={{ color: 'var(--amber)' }}>
-                        Student Survival OS is an organisational tool only. It does <strong>not</strong> constitute legal advice, immigration advice, or a substitute for consulting a qualified solicitor or regulated immigration adviser. Always verify information with official UK Government sources at <a href="https://www.gov.uk" target="_blank" rel="noopener noreferrer" className="underline">GOV.UK</a>.
+                        Student Mind is an organisational tool only. It does <strong>not</strong> constitute legal advice, immigration advice, or a substitute for consulting a qualified solicitor or regulated immigration adviser. Always verify information with official UK Government sources at <a href="https://www.gov.uk" target="_blank" rel="noopener noreferrer" className="underline">GOV.UK</a>.
                     </p>
                 </div>
 
@@ -50,8 +50,8 @@ export default function TermsPage() {
                         <h2 className="text-lg font-bold text-[var(--text)] mb-3">1. Definitions</h2>
                         <p>In these Terms:</p>
                         <ul className="list-disc ml-5 mt-2 space-y-1">
-                            <li><strong>"Service"</strong> refers to the Student Survival OS web application accessible at the URL provided to you upon registration.</li>
-                            <li><strong>"Operator" / "we" / "us"</strong> refers to the individual or entity operating Student Survival OS.</li>
+                            <li><strong>"Service"</strong> refers to the Student Mind web application accessible at the URL provided to you upon registration.</li>
+                            <li><strong>"Operator" / "we" / "us"</strong> refers to the individual or entity operating Student Mind.</li>
                             <li><strong>"User" / "you"</strong> refers to any individual who creates an account and uses the Service.</li>
                             <li><strong>"User Content"</strong> means all data entered by you, including visa expiry dates, work log entries, and budget figures.</li>
                         </ul>
@@ -200,7 +200,7 @@ export default function TermsPage() {
                 </div>
 
                 <div className="mt-14 pt-8 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)]">
-                    <span>Student Survival OS · England &amp; Wales</span>
+                    <span>Student Mind · England &amp; Wales</span>
                     <Link href="/privacy" className="hover:underline" style={{ color: 'var(--indigo)' }}>Privacy Policy →</Link>
                 </div>
             </main>

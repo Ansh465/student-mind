@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Student Survival OS',
+  title: 'Student Mind',
   description: 'Manage your visa, work hours, and budget — all in one place.',
 }
 

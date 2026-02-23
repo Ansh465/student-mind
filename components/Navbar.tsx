@@ -31,7 +31,7 @@ export function Navbar() {
                         <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style={{ background: 'var(--accent)' }}>
                             <GraduationCap className="w-5 h-5" style={{ color: 'var(--accent-fg)' }} />
                         </div>
-                        <span className="font-bold text-[var(--text)] hidden sm:block">Student Survival OS</span>
+                        <span className="font-bold text-[var(--text)] hidden sm:block">Student Mind</span>
                     </Link>
 
                     {/* Nav Links + Theme Toggle */}
@@ -41,8 +41,8 @@ export function Navbar() {
                                 key={href}
                                 href={href}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${pathname === href
-                                        ? 'text-[var(--accent-fg)] font-semibold'
-                                        : 'text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)]'
+                                    ? 'text-[var(--accent-fg)] font-semibold'
+                                    : 'text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)]'
                                     }`}
                                 style={pathname === href ? { background: 'var(--accent)' } : {}}
                             >

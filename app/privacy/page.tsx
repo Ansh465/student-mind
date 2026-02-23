@@ -3,8 +3,8 @@ import { GraduationCap, ArrowLeft } from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 export const metadata = {
-    title: 'Privacy Policy | Student Survival OS',
-    description: 'GDPR-compliant Privacy Policy for Student Survival OS.',
+    title: 'Privacy Policy | Student Mind',
+    description: 'GDPR-compliant Privacy Policy for Student Mind.',
 }
 
 export default function PrivacyPage() {
@@ -21,7 +21,7 @@ export default function PrivacyPage() {
                             <div className="w-6 h-6 rounded flex items-center justify-center" style={{ background: 'var(--accent)' }}>
                                 <GraduationCap className="w-3.5 h-3.5" style={{ color: 'var(--accent-fg)' }} />
                             </div>
-                            <span className="text-sm font-semibold text-[var(--text)]">Student Survival OS</span>
+                            <span className="text-sm font-semibold text-[var(--text)]">Student Mind</span>
                         </div>
                         <ThemeToggle />
                     </div>
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
                 <div className="mb-10">
                     <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--indigo)' }}>Legal</p>
                     <h1 className="text-3xl font-black text-[var(--text)] tracking-tight">Privacy Policy</h1>
-                    <p className="text-[var(--text-muted)] text-sm mt-2">Last updated: 23 February 2026 &nbsp;·&nbsp; Controller: Student Survival OS Operator</p>
+                    <p className="text-[var(--text-muted)] text-sm mt-2">Last updated: 23 February 2026 &nbsp;·&nbsp; Controller: Student Mind Operator</p>
                 </div>
 
                 <div className="rounded-2xl border p-6 mb-10" style={{ background: 'var(--indigo-soft)', borderColor: 'var(--indigo)' }}>
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
                     <section>
                         <h2 className="text-lg font-bold text-[var(--text)] mb-3">1. Who We Are (Data Controller)</h2>
                         <p>
-                            Student Survival OS ("we", "us", "our") is the data controller for personal data processed through this Service. For data-related enquiries, contact us at{' '}
+                            Student Mind ("we", "us", "our") is the data controller for personal data processed through this Service. For data-related enquiries, contact us at{' '}
                             <a href="mailto:privacy@studentsurvivalos.app" className="text-indigo-600 underline">privacy@studentsurvivalos.app</a>.
                         </p>
                     </section>
@@ -217,7 +217,7 @@ export default function PrivacyPage() {
                 </div>
 
                 <div className="mt-14 pt-8 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)]">
-                    <span>Student Survival OS · UK GDPR Compliant</span>
+                    <span>Student Mind · UK GDPR Compliant</span>
                     <Link href="/terms" className="hover:underline" style={{ color: 'var(--indigo)' }}>Terms of Service →</Link>
                 </div>
             </main>

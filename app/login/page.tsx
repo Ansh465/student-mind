@@ -65,7 +65,7 @@ export default function LoginPage() {
                         <GraduationCap className="w-8 h-8" style={{ color: 'var(--accent-fg)' }} />
                     </div>
                     <h1 className="text-3xl font-bold text-[var(--text)]">Welcome back</h1>
-                    <p className="text-[var(--text-sub)] mt-2">Sign in to Student Survival OS</p>
+                    <p className="text-[var(--text-sub)] mt-2">Sign in to Student Mind</p>
                 </div>
 
                 {/* Card */}
