@@ -1,26 +1,400 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────
+   THEME TOKENS — Crextio-inspired palette
+   Light: warm off-white + golden yellow accent
+   Dark:  deep charcoal + same golden yellow accent
+───────────────────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --bg: #f8f7f3;
+  /* warm off-white */
+  --bg-card: #ffffff;
+  --bg-raised: #faf9f5;
+  --bg-input: #f2f1ec;
+
+  /* Borders */
+  --border: rgba(0, 0, 0, 0.08);
+  --border-md: rgba(0, 0, 0, 0.12);
+
+  /* Text */
+  --text: #1a1a1a;
+  --text-sub: #6b6b6b;
+  --text-muted: #9b9b9b;
+
+  /* Accent — golden yellow (Crextio) */
+  --accent: #f0c14b;
+  --accent-dark: #d4a93a;
+  --accent-fg: #1a1a1a;
+  /* text on yellow button */
+  --accent-soft: rgba(240, 193, 75, 0.15);
+
+  /* Semantic */
+  --emerald: #16a34a;
+  --emerald-soft: rgba(22, 163, 74, 0.12);
+  --red: #dc2626;
+  --red-soft: rgba(220, 38, 38, 0.10);
+  --amber: #f59e0b;
+  --amber-soft: rgba(245, 158, 11, 0.12);
+  --indigo: #6366f1;
+  --indigo-soft: rgba(99, 102, 241, 0.12);
+
+  /* New Vibrant Palette */
+  --sky: #0ea5e9;
+  --sky-soft: rgba(14, 165, 233, 0.12);
+  --violet: #8b5cf6;
+  --violet-soft: rgba(139, 92, 246, 0.12);
+  --rose: #f43f5e;
+  --rose-soft: rgba(244, 63, 94, 0.12);
+  --mint: #10b981;
+  --mint-soft: rgba(16, 185, 129, 0.12);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  /* Navbar glass (light) */
+  --navbar-bg: rgba(248, 247, 243, 0.88);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  /* Backgrounds */
+  --bg: #0f1117;
+  --bg-card: #1a1d26;
+  --bg-raised: #13161f;
+  --bg-input: #1f2330;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-md: rgba(255, 255, 255, 0.12);
+
+  /* Text */
+  --text: #f0eeea;
+  --text-sub: #8b8b8b;
+  --text-muted: #555;
+
+  /* Accent stays golden */
+  --accent: #f0c14b;
+  --accent-dark: #d4a93a;
+  --accent-fg: #1a1a1a;
+  --accent-soft: rgba(240, 193, 75, 0.12);
+
+  /* Semantic */
+  --emerald: #22c55e;
+  --emerald-soft: rgba(34, 197, 94, 0.12);
+  --red: #ef4444;
+  --red-soft: rgba(239, 68, 68, 0.10);
+  --amber: #f59e0b;
+  --amber-soft: rgba(245, 158, 11, 0.12);
+  --indigo: #818cf8;
+  --indigo-soft: rgba(129, 140, 248, 0.12);
+
+  /* New Vibrant Palette (Dark) */
+  --sky: #38bdf8;
+  --sky-soft: rgba(56, 189, 248, 0.12);
+  --violet: #a78bfa;
+  --violet-soft: rgba(167, 139, 250, 0.12);
+  --rose: #fb7185;
+  --rose-soft: rgba(251, 113, 133, 0.12);
+  --mint: #34d399;
+  --mint-soft: rgba(52, 211, 153, 0.12);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
+
+  --navbar-bg: rgba(15, 17, 23, 0.88);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+html {
+  color-scheme: light dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-md);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─── Semantic utility classes (theme-aware) ─────────────────────────────── */
+.bg-theme {
+  background-color: var(--bg);
+}
+
+.bg-card {
+  background-color: var(--bg-card);
+}
+
+.bg-raised {
+  background-color: var(--bg-raised);
+}
+
+.bg-input-theme {
+  background-color: var(--bg-input);
+}
+
+.text-theme {
+  color: var(--text);
+}
+
+.text-sub {
+  color: var(--text-sub);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.border-theme {
+  border-color: var(--border);
+}
+
+.border-theme-md {
+  border-color: var(--border-md);
+}
+
+/* Card utility */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  border-color: var(--border-md);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Glow effects */
+.glow-emerald {
+  box-shadow: 0 0 20px -5px var(--emerald-soft);
+}
+
+.glow-amber {
+  box-shadow: 0 0 20px -5px var(--amber-soft);
+}
+
+.glow-indigo {
+  box-shadow: 0 0 20px -5px var(--indigo-soft);
+}
+
+.glow-violet {
+  box-shadow: 0 0 20px -5px var(--violet-soft);
+}
+
+.glow-accent {
+  box-shadow: 0 0 25px -5px var(--accent-soft);
+}
+
+/* Background decorator blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.dark .blob {
+  opacity: 0.1;
+}
+
+/* Glass card (dashboard) — adapts to theme */
+.glass {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-hover {
+  transition: background 0.2s ease;
+}
+
+.glass-hover:hover {
+  background: var(--bg-raised);
+}
+
+/* Navbar */
+.navbar-glass {
+  background: var(--navbar-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Input fields */
+.input-theme {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input-theme:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.input-theme::placeholder {
+  color: var(--text-muted);
+}
+
+/* Accent button */
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: background-color 0.15s, transform 0.1s;
+}
+
+.btn-accent:hover {
+  background-color: var(--accent-dark);
+}
+
+.btn-accent:active {
+  transform: scale(0.98);
+}
+
+/* Ghost button */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-md);
+  color: var(--text-sub);
+  border-radius: 0.75rem;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--text-sub);
+  color: var(--text);
+  background: var(--bg-raised);
+}
+
+/* Tag pill */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-md);
+  background: var(--bg-raised);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+}
+
+/* Step number (landing) */
+.step-number {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+/* Underline accent */
+.underline-accent {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+/* Border card (dark landing panels — keep dark regardless) */
+.border-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.border-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+@keyframes pulse-ring {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(240, 193, 75, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(240, 193, 75, 0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
 }
