@@ -140,5 +140,52 @@ create policy "Users can delete own documents"
   on storage.objects for delete
   using (
     bucket_id = 'documents' AND
-    auth.uid()::text = (storage.foldername(name))[1]
   );
+
+-- =============================================================
+-- INTERACTIVE WIDGETS
+-- =============================================================
+
+-- RAILCARDS
+create table if not exists public.railcards (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.profiles(id) on delete cascade,
+  type text not null, -- e.g., '16-25 Railcard', 'Network Railcard'
+  expiry_date date not null,
+  created_at timestamptz not null default now()
+);
+
+alter table public.railcards enable row level security;
+
+create policy "Users can view own railcards"
+  on public.railcards for select using (auth.uid() = user_id);
+
+create policy "Users can insert own railcards"
+  on public.railcards for insert with check (auth.uid() = user_id);
+
+create policy "Users can delete own railcards"
+  on public.railcards for delete using (auth.uid() = user_id);
+
+
+-- NETWORKING CONTACTS
+create table if not exists public.networking_contacts (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.profiles(id) on delete cascade,
+  name text not null,
+  company text,
+  role text,
+  event text,
+  linkedin text,
+  created_at timestamptz not null default now()
+);
+
+alter table public.networking_contacts enable row level security;
+
+create policy "Users can view own networking contacts"
+  on public.networking_contacts for select using (auth.uid() = user_id);
+
+create policy "Users can insert own networking contacts"
+  on public.networking_contacts for insert with check (auth.uid() = user_id);
+
+create policy "Users can delete own networking contacts"
+  on public.networking_contacts for delete using (auth.uid() = user_id);
