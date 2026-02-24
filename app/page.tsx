@@ -19,7 +19,17 @@ import {
   ClipboardList,
   Sparkles,
   Settings2,
-  LayoutDashboard
+  LayoutDashboard,
+  Bot,
+  Train,
+  Utensils,
+  Wallet,
+  Wand2,
+  FileSearch,
+  Users,
+  Mic,
+  Tag,
+  Activity
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
@@ -91,9 +101,15 @@ export default async function LandingPage() {
               The only all-in-one OS for international student life. Take control of your visa compliance, track multiple jobs, manage academic goals, and unlock UK life hacks—built to thrive, not just survive.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Link href="/signup" className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl btn-accent text-base font-black transition-all hover:scale-[1.03] shadow-xl shadow-[var(--accent)]/20 glow-accent">
-                Get Started Now <ArrowRight className="w-5 h-5" />
-              </Link>
+              {user ? (
+                <Link href="/dashboard" className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl btn-accent text-base font-black transition-all hover:scale-[1.03] shadow-xl shadow-[var(--accent)]/20 glow-accent">
+                  Go to Dashboard <ArrowRight className="w-5 h-5" />
+                </Link>
+              ) : (
+                <Link href="/signup" className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl btn-accent text-base font-black transition-all hover:scale-[1.03] shadow-xl shadow-[var(--accent)]/20 glow-accent">
+                  Get Started Now <ArrowRight className="w-5 h-5" />
+                </Link>
+              )}
               <a href="#features" className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] text-sm font-bold transition-all">
                 Explore Features
               </a>
@@ -107,7 +123,7 @@ export default async function LandingPage() {
                 ))}
               </div>
               <p className="text-[var(--text-muted)] text-sm font-medium">
-                Joined by <span className="text-[var(--text)] font-bold">2,500+</span> ambitious students across the UK.
+                Joined by <span className="text-[var(--text)] font-bold">Number of</span> ambitious students across the UK.
               </p>
             </div>
           </div>
@@ -132,54 +148,55 @@ export default async function LandingPage() {
 
               {/* Mockup Dashboard Content */}
               <div className="p-6 grid grid-cols-2 gap-4">
-                {/* News Feed / Resource Hub Item */}
-                <div className="col-span-2 border border-[var(--border)] bg-[var(--bg-raised)] rounded-2xl p-4 shadow-sm hover:scale-[1.01] transition-transform duration-300">
+                {/* AI Assistant Mock */}
+                <div className="col-span-2 border border-[var(--border)] bg-[var(--bg-raised)] rounded-2xl p-4 shadow-sm group hover:scale-[1.01] transition-transform duration-300">
                   <div className="flex items-center justify-between mb-3 leading-none">
                     <div className="flex items-center gap-2">
-                      <Newspaper className="w-3.5 h-3.5 text-[var(--accent)]" />
-                      <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-sub)]">Visa Updates</span>
+                      <Bot className="w-4 h-4 text-emerald-500" />
+                      <span className="text-[10px] font-black uppercase tracking-wider text-[var(--text-sub)]">Survival AI</span>
                     </div>
-                    <span className="text-[9px] text-[var(--accent)] font-bold px-1.5 py-0.5 rounded-full bg-[var(--accent-soft)]">Live</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-[9px] text-emerald-500/90 font-bold uppercase tracking-widest">Active Sim</span>
+                    </div>
                   </div>
-                  <div className="text-[11px] font-bold text-[var(--text)] mb-1">New Graduate Route changes announced...</div>
-                  <div className="h-2 w-full bg-[var(--bg-input)] rounded-full overflow-hidden">
-                    <div className="h-full bg-[var(--accent)]" style={{ width: '45%' }} />
+                  <div className="bg-[var(--accent)] text-white text-[11px] font-bold p-2.5 rounded-xl rounded-tr-none w-[85%] ml-auto mb-2 shadow-sm">
+                    How many hours can I work on a Student Visa during term time?
+                  </div>
+                  <div className="bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text)] text-[11px] leading-relaxed font-medium p-2.5 rounded-xl rounded-tl-none w-[90%] shadow-sm">
+                    You can work a maximum of 20 hours per week during official term time...
                   </div>
                 </div>
 
                 {/* Job Tracker Mock */}
                 <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-4 shadow-sm group">
                   <div className="flex items-center gap-2 mb-3">
-                    <Briefcase className="w-4 h-4 text-emerald-500" />
-                    <span className="text-[10px] font-bold text-[var(--text-muted)] group-hover:text-emerald-500 transition-colors">Job Tracker</span>
+                    <Briefcase className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Job Tracker</span>
                   </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px] font-bold border-b border-[var(--border)] pb-2">
-                      <span>Tech Intern</span>
-                      <span className="text-emerald-500">Applied</span>
+                  <div className="space-y-2.5 mt-1">
+                    <div className="flex items-center justify-between text-[11px] font-bold border-b border-[var(--border)] pb-2.5">
+                      <span className="text-[var(--text)] text-[12px]">Tech Intern</span>
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-500 uppercase tracking-wider font-black">Applied</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px] font-bold">
-                      <span>Store Asst</span>
-                      <span className="text-amber-500">Interview</span>
+                      <span className="text-[var(--text)] text-[12px]">Store Asst</span>
+                      <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-500 uppercase tracking-wider font-black">Interview</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Checklist Mock */}
-                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-4 shadow-sm">
+                {/* Visa Pulse Mock */}
+                <div className="border border-[var(--border)] bg-[var(--bg-card)] rounded-2xl p-4 shadow-sm group">
                   <div className="flex items-center gap-2 mb-3 leading-none">
-                    <ClipboardList className="w-3.5 h-3.5 text-indigo-500" />
-                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Landing</span>
+                    <Shield className="w-4 h-4 text-rose-500 group-hover:scale-110 transition-transform" />
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">Visa Pulse</span>
                   </div>
-                  <div className="space-y-1.5">
-                    {[1, 1, 0].map((c, i) => (
-                      <div key={i} className="flex items-center gap-2 opacity-80">
-                        <CheckCircle2 className={`w-3.5 h-3.5 ${c ? 'text-emerald-500' : 'text-[var(--text-muted)]'}`} />
-                        <div className={`h-1.5 rounded-full bg-[var(--border)] flex-1 overflow-hidden`}>
-                          <div className={`h-full ${c ? 'bg-emerald-500' : ''}`} style={{ width: c ? '100%' : '0%' }} />
-                        </div>
-                      </div>
-                    ))}
+                  <div className="text-[2rem] leading-[1] font-black text-[var(--text)] mb-2 mt-2">
+                    84 <span className="text-xs text-[var(--text-muted)] tracking-wider uppercase font-bold">Days Left</span>
+                  </div>
+                  <div className="text-[9px] font-black text-rose-500 px-2 py-0.5 max-w-fit bg-rose-500/10 rounded-md uppercase tracking-widest mt-1">
+                    Action Required
                   </div>
                 </div>
 
@@ -316,17 +333,21 @@ export default async function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               { icon: Shield, col: 'text-emerald-500', bg: 'bg-emerald-500/10', t: 'Visa Pulse', d: '90, 60, 30-day countdown triggers.' },
-              { icon: Clock, col: 'text-indigo-500', bg: 'bg-indigo-500/10', t: 'Multi-Job Log', d: 'Weekly limits & automatic payouts.' },
-              { icon: PiggyBank, col: 'text-rose-500', bg: 'bg-rose-500/10', t: 'Budget Master', d: 'Track rent, groceries, and savings.' },
-              { icon: ShieldCheck, col: 'text-amber-500', bg: 'bg-amber-500/10', t: 'Secure Vault', d: 'Expiry alerts for BRP & Passport.' },
-              { icon: Briefcase, col: 'text-sky-500', bg: 'bg-sky-500/10', t: 'Job Tracker', d: 'Manage Graduate Route applications.' },
-              { icon: ClipboardList, col: 'text-purple-500', bg: 'bg-purple-500/10', t: 'UK Checklist', d: 'BRP, NI Number, and GP registration.' },
-              { icon: Newspaper, col: 'text-emerald-500', bg: 'bg-emerald-500/10', t: 'Live News', d: 'Direct GOV.UK student visa feeds.' },
-              { icon: Target, col: 'text-rose-500', bg: 'bg-rose-500/10', t: 'Assignment Log', d: 'Priority-based deadline tracking.' },
-              { icon: Home, col: 'text-indigo-500', bg: 'bg-indigo-500/10', t: 'Housing Log', d: 'Rent receipts & maintenance trail.' },
-              { icon: Languages, col: 'text-orange-500', bg: 'bg-orange-500/10', t: 'Culture Hack', d: 'British slang & essential etiquette.' },
-              { icon: Sparkles, col: 'text-amber-500', bg: 'bg-amber-500/10', t: 'Life Hacks', d: 'Pro tips for saving money in UK.' },
-              { icon: Settings2, col: 'text-slate-500', bg: 'bg-slate-500/10', t: 'Settings Hub', d: 'Comprehensive dashboard control.' },
+              { icon: Wallet, col: 'text-sky-500', bg: 'bg-sky-500/10', t: 'Daily Safe Spend', d: 'Pacing your budget mathematically.' },
+              { icon: Activity, col: 'text-rose-500', bg: 'bg-rose-500/10', t: 'NHS Navigator', d: 'Find care and HC2 certificates.' },
+              { icon: ShieldCheck, col: 'text-amber-500', bg: 'bg-amber-500/10', t: 'Document Vault', d: 'Secure storage & expiry alerts.' },
+              { icon: PiggyBank, col: 'text-emerald-500', bg: 'bg-emerald-500/10', t: 'Budget Planner', d: 'Track rent, groceries, and savings.' },
+              { icon: Tag, col: 'text-indigo-500', bg: 'bg-indigo-500/10', t: 'Discount Tracker', d: 'Unidays, Totum & grocery deals.' },
+              { icon: Train, col: 'text-amber-500', bg: 'bg-amber-500/10', t: 'Railcard Manager', d: 'Track expiry and journey savings.' },
+              { icon: Users, col: 'text-purple-500', bg: 'bg-purple-500/10', t: 'Networking CRM', d: 'Manage coffee chats & contacts.' },
+              { icon: Utensils, col: 'text-orange-500', bg: 'bg-orange-500/10', t: 'Taste of Home', d: 'Find supermarkets with home food.' },
+              { icon: Clock, col: 'text-blue-500', bg: 'bg-blue-500/10', t: 'Work Hour Log', d: 'Weekly limits & automatic payouts.' },
+              { icon: Briefcase, col: 'text-rose-500', bg: 'bg-rose-500/10', t: 'Job Tracker', d: 'Manage applications with stages.' },
+              { icon: Bot, col: 'text-emerald-500', bg: 'bg-emerald-500/10', t: 'AI Assistant', d: 'Chat with a private UK survival AI.' },
+              { icon: Mic, col: 'text-sky-500', bg: 'bg-sky-500/10', t: 'AI Interview Coach', d: 'Practice with a simulated HR agent.' },
+              { icon: Wand2, col: 'text-purple-500', bg: 'bg-purple-500/10', t: 'AI Cover Letter', d: 'Generates letters for UK jobs.' },
+              { icon: FileSearch, col: 'text-indigo-500', bg: 'bg-indigo-500/10', t: 'Resume Scanner', d: 'Deep-scan against UK job descriptions.' },
+              { icon: Settings2, col: 'text-slate-500', bg: 'bg-slate-500/10', t: 'Settings Hub', d: 'Resize and toggle all dashboard components.' },
             ].map(({ icon: Icon, col, bg, t, d }) => (
               <div key={t} className="p-6 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] group hover:scale-[1.02] hover:shadow-xl hover:border-[var(--accent)]/30 transition-all">
                 <div className={`w-12 h-12 rounded-2xl ${bg} ${col} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
@@ -353,12 +374,20 @@ export default async function LandingPage() {
             Take the stress out of UK life and join the Student Mind ecosystem today.
           </p>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4">
-            <Link href="/signup" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl btn-accent text-lg font-black transition-all hover:scale-[1.05] shadow-2xl shadow-[var(--accent)]/20 glow-accent">
-              Unlock Your Dashboard <ArrowUpRight className="w-5 h-5" />
-            </Link>
-            <Link href="/login" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-card)] text-base font-bold transition-all">
-              Already a Member?
-            </Link>
+            {user ? (
+              <Link href="/dashboard" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl btn-accent text-lg font-black transition-all hover:scale-[1.05] shadow-2xl shadow-[var(--accent)]/20 glow-accent">
+                Go to Dashboard <ArrowUpRight className="w-5 h-5" />
+              </Link>
+            ) : (
+              <>
+                <Link href="/signup" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl btn-accent text-lg font-black transition-all hover:scale-[1.05] shadow-2xl shadow-[var(--accent)]/20 glow-accent">
+                  Unlock Your Dashboard <ArrowUpRight className="w-5 h-5" />
+                </Link>
+                <Link href="/login" className="flex items-center justify-center gap-2 px-10 py-5 rounded-2xl border border-[var(--border)] text-[var(--text-sub)] hover:text-[var(--text)] hover:bg-[var(--bg-card)] text-base font-bold transition-all">
+                  Already a Member?
+                </Link>
+              </>
+            )}
           </div>
           <p className="text-[var(--text-muted)] text-[13px] mt-10 font-medium">Free forever · No credit card required · GDPR Compliant</p>
         </div>

@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { Wand2, Copy, Check, Loader2, Sparkles, FileText, Send } from 'lucide-react'
+import { Wand2, Copy, Check, Loader2, Sparkles, FileText, Send, CheckSquare, Square } from 'lucide-react'
 import { ProBadge } from '../ProBadge'
 
 export function AIWriter() {
     const [jobTitle, setJobTitle] = useState('')
     const [keyPoints, setKeyPoints] = useState('')
+    const [includePsw, setIncludePsw] = useState(true)
     const [isGenerating, setIsGenerating] = useState(false)
     const [result, setResult] = useState('')
     const [copied, setCopied] = useState(false)
@@ -15,11 +16,15 @@ export function AIWriter() {
         setIsGenerating(true)
         // Simulate AI generation
         setTimeout(() => {
+            const pswClause = includePsw
+                ? "I am currently studying in the UK on a Student Visa and will be eligible for the 2-year Graduate Route (PSW) visa upon successful completion of my degree, affording me full, unrestricted right to work without requiring immediate sponsorship.\n\n"
+                : ""
+
             const mockCoverLetter = `Dear Hiring Manager,
 
 I am writing to express my strong interest in the ${jobTitle || '[Job Title]'} position. As an international student in the UK, I bring a unique perspective and a dedicated work ethic to your team.
 
-${keyPoints ? `Regarding your requirements, ${keyPoints}. ` : ''}Throughout my academic journey, I have developed strong analytical skills and a proactive approach to problem-solving. My international background has taught me adaptability and effective communication in diverse environments.
+${pswClause}${keyPoints ? `Regarding your requirements, ${keyPoints}. ` : ''}Throughout my academic journey, I have developed strong analytical skills and a proactive approach to problem-solving. My international background has taught me adaptability and effective communication in diverse environments.
 
 I am particularly impressed by your company's commitment to innovation and would welcome the opportunity to contribute my skills to your upcoming projects.
 
@@ -39,7 +44,7 @@ Sincerely,
     }
 
     return (
-        <div className="card rounded-2xl p-6 h-full flex flex-col bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-raised)] border-[var(--border)] overflow-hidden relative">
+        <div className="card rounded-2xl p-6 flex-1 flex flex-col bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-raised)] border-[var(--border)] overflow-hidden relative">
             {/* Background Accent */}
             <div className="absolute -top-12 -right-12 w-32 h-32 bg-[var(--accent)] opacity-[0.03] blur-3xl pointer-events-none" />
 
@@ -74,9 +79,22 @@ Sincerely,
                             value={keyPoints}
                             onChange={(e) => setKeyPoints(e.target.value)}
                             placeholder="e.g. 2 years React exp, fluent in 3 languages..."
-                            className="input-theme w-full px-4 py-3 rounded-xl text-sm min-h-[100px] resize-none"
+                            className="input-theme w-full px-4 py-3 rounded-xl text-sm min-h-[80px] resize-none"
                         />
                     </div>
+
+                    <button
+                        onClick={() => setIncludePsw(!includePsw)}
+                        className="flex items-center gap-2 text-sm text-[var(--text-sub)] hover:text-[var(--text)] transition-colors py-1 group"
+                    >
+                        {includePsw ? (
+                            <CheckSquare className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                        ) : (
+                            <Square className="w-4 h-4 text-[var(--text-muted)] shrink-0 group-hover:border-[var(--accent)]" />
+                        )}
+                        <span className="text-[11px] font-medium leading-tight">Explicitly state Graduate Visa (PSW) eligibility</span>
+                    </button>
+
                     <button
                         onClick={handleGenerate}
                         disabled={isGenerating || !jobTitle}

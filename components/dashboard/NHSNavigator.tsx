@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Search, MapPin, Phone, ExternalLink, Activity, Info, AlertTriangle, Stethoscope, HeartPulse, ChevronRight } from 'lucide-react'
+import { Plus, Search, MapPin, Phone, ExternalLink, Activity, Info, AlertTriangle, Stethoscope, HeartPulse, ChevronRight, PoundSterling } from 'lucide-react'
 
 interface GPSurgery {
     name: string
@@ -32,7 +32,7 @@ export function NHSNavigator() {
     }
 
     return (
-        <div className="card rounded-2xl p-6 h-full flex flex-col bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-raised)] border border-[var(--border)] overflow-hidden">
+        <div className="card rounded-2xl p-6 flex-1 flex flex-col bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-raised)] border border-[var(--border)] overflow-hidden">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
@@ -58,6 +58,14 @@ export function NHSNavigator() {
                     </a>
                 </div>
 
+                <a href="https://www.nhsbsa.nhs.uk/nhs-low-income-scheme" target="_blank" className="block p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 hover:border-emerald-500/40 transition-colors group">
+                    <div className="flex items-center gap-2 mb-1">
+                        <PoundSterling className="w-4 h-4 text-emerald-500 group-hover:scale-110 transition-transform" />
+                        <h4 className="text-xs font-bold text-[var(--text)]">Apply for HC2 Certificate</h4>
+                    </div>
+                    <p className="text-[10px] text-[var(--text-sub)]">As a student, you likely qualify for the NHS Low Income Scheme. This covers prescription costs (£9.90 each) and NHS dental care!</p>
+                </a>
+
                 <div className="p-4 rounded-2xl bg-[var(--bg-raised)] border border-[var(--border)] space-y-3">
                     <h3 className="text-xs font-black text-[var(--text)] flex items-center gap-2">
                         <Search className="w-4 h-4 text-[var(--accent)]" />
@@ -82,7 +90,7 @@ export function NHSNavigator() {
                         <p className="text-[10px] font-bold text-[var(--text-muted)]">Scanning postcodes...</p>
                     </div>
                 ) : results.length > 0 ? (
-                    <div className="space-y-2 overflow-y-auto max-h-[250px] pr-1">
+                    <div className="space-y-2 overflow-y-auto max-h-[160px] pr-1">
                         {results.map((r, i) => (
                             <div key={i} className="p-3 rounded-xl bg-[var(--bg-raised)] border border-[var(--border)] hover:border-[var(--accent)] transition-all group">
                                 <div className="flex justify-between items-start mb-1">

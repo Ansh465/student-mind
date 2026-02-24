@@ -122,39 +122,36 @@ export default function SignupPage() {
                         {/* ── CONSENT CHECKBOXES ─────────────────────── */}
                         <div className="space-y-3 pt-1">
                             {/* Mandatory: no legal advice */}
-                            <label className="flex items-start gap-3 cursor-pointer">
-                                <button type="button" onClick={() => setConsentLegal(v => !v)}
-                                    className="flex-shrink-0 mt-0.5 w-5 h-5 rounded transition-colors"
+                            <label className="flex items-start gap-3 cursor-pointer" onClick={() => setConsentLegal(v => !v)}>
+                                <div className="flex-shrink-0 mt-0.5 w-5 h-5 rounded transition-colors"
                                     style={{ color: consentLegal ? 'var(--accent)' : 'var(--text-muted)' }}>
                                     {consentLegal ? <CheckSquare className="w-5 h-5" /> : <Square className="w-5 h-5" />}
-                                </button>
+                                </div>
                                 <span className="text-xs text-[var(--text-sub)] leading-snug">
                                     I understand that Student Mind is <strong className="text-[var(--text)]">not a legal service</strong>. I am responsible for verifying my visa compliance with official UK Government sources and a qualified immigration adviser. <span className="text-[var(--red)]">*</span>
                                 </span>
                             </label>
 
                             {/* Mandatory: ToS + Privacy */}
-                            <label className="flex items-start gap-3 cursor-pointer">
-                                <button type="button" onClick={() => setConsentTerms(v => !v)}
-                                    className="flex-shrink-0 mt-0.5 w-5 h-5 rounded transition-colors"
+                            <label className="flex items-start gap-3 cursor-pointer" onClick={(e) => { e.preventDefault(); setConsentTerms(v => !v) }}>
+                                <div className="flex-shrink-0 mt-0.5 w-5 h-5 rounded transition-colors"
                                     style={{ color: consentTerms ? 'var(--accent)' : 'var(--text-muted)' }}>
                                     {consentTerms ? <CheckSquare className="w-5 h-5" /> : <Square className="w-5 h-5" />}
-                                </button>
+                                </div>
                                 <span className="text-xs text-[var(--text-sub)] leading-snug">
                                     I agree to the{' '}
-                                    <Link href="/terms" target="_blank" className="hover:underline" style={{ color: 'var(--indigo)' }}>Terms of Service</Link>
+                                    <Link href="/terms" target="_blank" className="hover:underline" onClick={e => e.stopPropagation()} style={{ color: 'var(--indigo)' }}>Terms of Service</Link>
                                     {' '}and{' '}
-                                    <Link href="/privacy" target="_blank" className="hover:underline" style={{ color: 'var(--indigo)' }}>Privacy Policy</Link>. <span className="text-[var(--red)]">*</span>
+                                    <Link href="/privacy" target="_blank" className="hover:underline" onClick={e => e.stopPropagation()} style={{ color: 'var(--indigo)' }}>Privacy Policy</Link>. <span className="text-[var(--red)]">*</span>
                                 </span>
                             </label>
 
                             {/* Optional: analytics */}
-                            <label className="flex items-start gap-3 cursor-pointer">
-                                <button type="button" onClick={() => setConsentAnalytics(v => !v)}
-                                    className="flex-shrink-0 mt-0.5 w-5 h-5 rounded transition-colors"
+                            <label className="flex items-start gap-3 cursor-pointer" onClick={() => setConsentAnalytics(v => !v)}>
+                                <div className="flex-shrink-0 mt-0.5 w-5 h-5 rounded transition-colors"
                                     style={{ color: consentAnalytics ? 'var(--accent)' : 'var(--text-muted)' }}>
                                     {consentAnalytics ? <CheckSquare className="w-5 h-5" /> : <Square className="w-5 h-5" />}
-                                </button>
+                                </div>
                                 <span className="text-xs text-[var(--text-sub)] leading-snug">
                                     I consent to anonymous, aggregated usage data collection to help improve the app. <span className="text-[var(--text-muted)]">(Optional)</span>
                                 </span>

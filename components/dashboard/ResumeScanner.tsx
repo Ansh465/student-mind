@@ -76,7 +76,7 @@ export function ResumeScanner() {
     }
 
     return (
-        <div className="card rounded-2xl p-6 h-full flex flex-col bg-[var(--bg-card)] border-[var(--border)] relative overflow-hidden">
+        <div className="card rounded-2xl p-6 flex-1 flex flex-col bg-[var(--bg-card)] border-[var(--border)] relative overflow-hidden">
             {/* Background Accent */}
             <div className="absolute -top-12 -right-12 w-32 h-32 bg-[var(--indigo)] opacity-[0.03] blur-3xl pointer-events-none" />
 

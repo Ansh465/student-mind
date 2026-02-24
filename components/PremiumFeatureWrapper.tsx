@@ -19,9 +19,9 @@ export function PremiumFeatureWrapper({
     if (tier === 'pro') return <>{children}</>
 
     return (
-        <div className="relative group overflow-hidden rounded-2xl">
+        <div className="relative group overflow-hidden rounded-2xl h-full flex flex-col">
             {/* Blurred Content Overlay */}
-            <div className="absolute inset-0 z-10 bg-[var(--bg-card)]/40 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500">
+            <div className="absolute inset-0 z-10 bg-[var(--bg-card)]/40 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500 rounded-2xl">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--accent)] to-[#ffa43a] flex items-center justify-center mb-4 shadow-xl shadow-[var(--accent)]/30">
                     <Lock className="w-6 h-6 text-white" />
                 </div>
@@ -44,7 +44,7 @@ export function PremiumFeatureWrapper({
             </div>
 
             {/* Non-interactive Content Preview */}
-            <div className="opacity-40 grayscale blur-[1px] pointer-events-none select-none">
+            <div className="opacity-40 grayscale blur-[1px] pointer-events-none select-none flex-1 min-h-0 flex flex-col">
                 {children}
             </div>
         </div>

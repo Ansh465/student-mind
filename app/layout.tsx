@@ -22,7 +22,9 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="min-h-screen flex flex-col">
             <main className="flex-1">
-              {children}
+              <div className="animate-page-enter">
+                {children}
+              </div>
             </main>
             <Disclaimer />
           </div>

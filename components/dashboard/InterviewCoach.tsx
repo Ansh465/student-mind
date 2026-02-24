@@ -96,7 +96,7 @@ export function InterviewCoach() {
     }
 
     return (
-        <div className="card rounded-2xl h-full flex flex-col bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-raised)] border border-[var(--border)] overflow-hidden">
+        <div className="card rounded-2xl flex-1 flex flex-col bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-raised)] border border-[var(--border)] overflow-hidden">
             <div className="p-6 border-b border-[var(--border)] bg-[var(--bg-raised)]/50">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -153,28 +153,30 @@ export function InterviewCoach() {
                     </div>
                 ) : (
                     <div className="flex-1 flex flex-col overflow-hidden">
-                        <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar pb-4">
-                            {messages.map((m, i) => (
-                                <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-[85%] p-3.5 rounded-2xl text-[11px] leading-relaxed shadow-sm ${m.role === 'user'
-                                        ? 'bg-[var(--accent)] text-white font-bold rounded-tr-none'
-                                        : 'bg-[var(--bg-raised)] border border-[var(--border)] text-[var(--text)] rounded-tl-none'
-                                        }`}>
-                                        {m.content}
-                                    </div>
-                                </div>
-                            ))}
-                            {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="bg-[var(--bg-raised)] border border-[var(--border)] p-4 rounded-2xl rounded-tl-none animate-pulse">
-                                        <div className="flex gap-1.5">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" style={{ animationDelay: '0ms' }} />
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" style={{ animationDelay: '150ms' }} />
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <div className="flex-1 relative min-h-[300px]">
+                            <div ref={scrollRef} className="absolute inset-0 overflow-y-auto space-y-4 pr-2 custom-scrollbar pb-4">
+                                {messages.map((m, i) => (
+                                    <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                        <div className={`max-w-[85%] p-3.5 rounded-2xl text-[11px] leading-relaxed shadow-sm ${m.role === 'user'
+                                            ? 'bg-[var(--accent)] text-white font-bold rounded-tr-none'
+                                            : 'bg-[var(--bg-raised)] border border-[var(--border)] text-[var(--text)] rounded-tl-none'
+                                            }`}>
+                                            {m.content}
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                ))}
+                                {isLoading && (
+                                    <div className="flex justify-start">
+                                        <div className="bg-[var(--bg-raised)] border border-[var(--border)] p-4 rounded-2xl rounded-tl-none animate-pulse">
+                                            <div className="flex gap-1.5">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" style={{ animationDelay: '0ms' }} />
+                                                <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" style={{ animationDelay: '150ms' }} />
+                                                <div className="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)] animate-bounce" style={{ animationDelay: '300ms' }} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <form onSubmit={sendMessage} className="mt-2 flex gap-2">

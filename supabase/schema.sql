@@ -12,6 +12,7 @@ create table if not exists public.profiles (
   onboarding_complete boolean not null default false,
   subscription_tier text not null default 'free' check (subscription_tier in ('free', 'pro')),
   usage_limits jsonb not null default '{}'::jsonb,
+  dashboard_layout jsonb default null,
   is_admin boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -108,3 +109,36 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
+
+-- =============================================================
+-- STORAGE — Document Vault bucket
+-- Run this AFTER creating the bucket named 'documents' in the
+-- Supabase Dashboard -> Storage tab.
+-- =============================================================
+
+-- Create the bucket (safe to run even if it exists)
+insert into storage.buckets (id, name, public)
+values ('documents', 'documents', false)
+on conflict (id) do nothing;
+
+-- RLS: users can only see their own folder
+create policy "Users can upload own documents"
+  on storage.objects for insert
+  with check (
+    bucket_id = 'documents' AND
+    auth.uid()::text = (storage.foldername(name))[1]
+  );
+
+create policy "Users can view own documents"
+  on storage.objects for select
+  using (
+    bucket_id = 'documents' AND
+    auth.uid()::text = (storage.foldername(name))[1]
+  );
+
+create policy "Users can delete own documents"
+  on storage.objects for delete
+  using (
+    bucket_id = 'documents' AND
+    auth.uid()::text = (storage.foldername(name))[1]
+  );

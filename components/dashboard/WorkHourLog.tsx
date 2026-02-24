@@ -4,7 +4,9 @@ import { useState, useTransition, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { format } from 'date-fns'
-import { Clock, Plus, Loader2, Trash2, AlertCircle, Briefcase, PoundSterling, Settings2, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { Clock, Plus, Loader2, Trash2, AlertCircle, Briefcase, PoundSterling, Settings2, X, Flame } from 'lucide-react'
+import { fireSuccessConfetti, fireMilestoneConfetti } from '@/lib/confetti'
+import { AnimatedNumber } from '@/components/AnimatedNumber'
 
 interface Job {
     id: string
@@ -51,6 +53,7 @@ export function WorkHourLog({ userId, weeklyHours, weeklyLimit, recentLogs }: Wo
     const [selectedJobId, setSelectedJobId] = useState(DEFAULT_JOB.id)
     const [newJobName, setNewJobName] = useState('')
     const [newJobRate, setNewJobRate] = useState('')
+    const [streak, setStreak] = useState(0)
 
     // Load jobs from localStorage
     useEffect(() => {
@@ -62,7 +65,20 @@ export function WorkHourLog({ userId, weeklyHours, weeklyLimit, recentLogs }: Wo
                 setSelectedJobId(parsed[0].id)
             }
         }
-    }, [])
+        // Calculate streak from recent logs
+        try {
+            const today = new Date()
+            let currentStreak = 0
+            const dates = [...new Set(recentLogs.map(l => l.work_date))].sort().reverse()
+            let checkDate = new Date(today)
+            for (const dateStr of dates) {
+                const d = new Date(dateStr + 'T12:00:00')
+                const diff = Math.floor((checkDate.getTime() - d.getTime()) / (1000 * 60 * 60 * 24))
+                if (diff <= 1) { currentStreak++; checkDate = d } else break
+            }
+            setStreak(currentStreak)
+        } catch (e) { /* ignore */ }
+    }, [recentLogs])
 
     const saveJobs = (updatedJobs: Job[]) => {
         setJobs(updatedJobs)
@@ -152,6 +168,12 @@ export function WorkHourLog({ userId, weeklyHours, weeklyLimit, recentLogs }: Wo
         setHours('')
         setNotes('')
         setSubmitting(false)
+        // Confetti! 🎉
+        if (pct >= 100) {
+            fireMilestoneConfetti() // Big blast for hitting the limit
+        } else {
+            fireSuccessConfetti()
+        }
         startTransition(() => router.refresh())
     }
 
@@ -162,11 +184,16 @@ export function WorkHourLog({ userId, weeklyHours, weeklyLimit, recentLogs }: Wo
     }
 
     return (
-        <div className="card rounded-2xl p-6 h-full flex flex-col">
+        <div className="card rounded-2xl p-6 flex-1 flex flex-col">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                     <Clock className="w-5 h-5" style={{ color: 'var(--accent)' }} />
                     <h2 className="font-semibold text-[var(--text)]">Work Hour Log</h2>
+                    {streak > 0 && (
+                        <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500 text-[10px] font-black animate-pulse-ring">
+                            <Flame className="w-3 h-3" />{streak}d
+                        </span>
+                    )}
                 </div>
                 <button
                     onClick={() => setShowJobManager(!showJobManager)}
@@ -229,8 +256,10 @@ export function WorkHourLog({ userId, weeklyHours, weeklyLimit, recentLogs }: Wo
             <div className={`rounded-xl p-5 mb-6 bg-[var(--bg-raised)] border border-[var(--border)] transition-all duration-500 ${glowClass}`}>
                 <div className="flex justify-between items-start mb-3">
                     <div>
-                        <span className="text-4xl font-black text-[var(--text)] tracking-tighter">{weeklyHours.toFixed(1)}</span>
-                        <span className="text-[var(--text-muted)] text-sm ml-1.5 font-medium">/ {weeklyLimit}h logged</span>
+                        <div className="flex items-baseline gap-1.5">
+                            <AnimatedNumber value={weeklyHours} decimals={1} className="text-4xl font-black text-[var(--text)] tracking-tighter" />
+                            <span className="text-[var(--text-muted)] text-sm font-medium">/ {weeklyLimit}h logged</span>
+                        </div>
                         <div className="flex items-center gap-1 mt-1 text-[var(--emerald)] font-bold">
                             <PoundSterling className="w-3.5 h-3.5" />
                             <span className="text-lg tracking-tight">~{weeklyEarnings.toFixed(2)}</span>
@@ -324,55 +353,57 @@ export function WorkHourLog({ userId, weeklyHours, weeklyLimit, recentLogs }: Wo
             </form>
 
             {/* Recent entries */}
-            {parsedLogs.length > 0 && (
-                <div className="space-y-2 flex-1 flex flex-col min-h-0">
-                    <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recent Entries</h3>
-                    <div className="space-y-2 overflow-y-auto pr-1 flex-1">
-                        {parsedLogs.map(log => (
-                            <div key={log.id} className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg-raised)] hover:bg-[var(--bg-input)] group transition-all">
-                                <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border)] text-[var(--accent)]">
-                                            {log.jobName}
-                                        </span>
-                                        <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase">
-                                            {format(new Date(log.work_date + 'T12:00:00'), 'EEE, dd MMM')}
-                                        </p>
-                                    </div>
-                                    <button
-                                        onClick={() => handleDelete(log.id)}
-                                        className="opacity-0 group-hover:opacity-100 p-1 rounded text-[var(--text-muted)] hover:text-[var(--red)] transition-all"
-                                    >
-                                        <Trash2 className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="text-lg font-black text-[var(--text)] tracking-tighter">
-                                            {log.hours.toFixed(1)}h
-                                        </div>
-                                        {log.originalNotes && (
-                                            <p className="text-xs text-[var(--text-muted)] italic truncate max-w-[120px]">
-                                                "{log.originalNotes}"
+            {
+                parsedLogs.length > 0 && (
+                    <div className="space-y-2 flex-1 flex flex-col min-h-0">
+                        <h3 className="text-xs font-medium text-[var(--text-muted)] uppercase tracking-wider">Recent Entries</h3>
+                        <div className="space-y-2 overflow-y-auto pr-1 flex-1">
+                            {parsedLogs.map(log => (
+                                <div key={log.id} className="p-3 rounded-xl border border-[var(--border)] bg-[var(--bg-raised)] hover:bg-[var(--bg-input)] group transition-all">
+                                    <div className="flex items-center justify-between mb-2">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border)] text-[var(--accent)]">
+                                                {log.jobName}
+                                            </span>
+                                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase">
+                                                {format(new Date(log.work_date + 'T12:00:00'), 'EEE, dd MMM')}
                                             </p>
-                                        )}
+                                        </div>
+                                        <button
+                                            onClick={() => handleDelete(log.id)}
+                                            className="opacity-0 group-hover:opacity-100 p-1 rounded text-[var(--text-muted)] hover:text-[var(--red)] transition-all"
+                                        >
+                                            <Trash2 className="w-3.5 h-3.5" />
+                                        </button>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-sm font-bold text-[var(--emerald)] flex items-center justify-end gap-0.5">
-                                            <PoundSterling className="w-3 h-3" />
-                                            {log.earnings.toFixed(2)}
-                                        </p>
-                                        <p className="text-[9px] text-[var(--text-muted)] uppercase tracking-widest">
-                                            £{log.jobRate}/hr
-                                        </p>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="text-lg font-black text-[var(--text)] tracking-tighter">
+                                                {log.hours.toFixed(1)}h
+                                            </div>
+                                            {log.originalNotes && (
+                                                <p className="text-xs text-[var(--text-muted)] italic truncate max-w-[120px]">
+                                                    "{log.originalNotes}"
+                                                </p>
+                                            )}
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-sm font-bold text-[var(--emerald)] flex items-center justify-end gap-0.5">
+                                                <PoundSterling className="w-3 h-3" />
+                                                {log.earnings.toFixed(2)}
+                                            </p>
+                                            <p className="text-[9px] text-[var(--text-muted)] uppercase tracking-widest">
+                                                £{log.jobRate}/hr
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     )
 }
 
