@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import type { TileConfig } from './DashboardSettings'
 import { VisaCountdown } from './VisaCountdown'
 import { WorkHourLog } from './WorkHourLog'
@@ -64,7 +65,32 @@ export function DashboardGrid({
     const [layout, setLayout] = useState<TileConfig[]>([])
     const [isSettingsOpen, setIsSettingsOpen] = useState(false)
     const [greeting, setGreeting] = useState({ emoji: '👋', message: "Here's your survival overview for today." })
+    const [isVerifying, setIsVerifying] = useState(false)
     const tier = profile?.subscription_tier ?? 'free'
+    const searchParams = useSearchParams()
+    const router = useRouter()
+
+    useEffect(() => {
+        const sessionId = searchParams.get('session_id')
+        if (sessionId && tier !== 'pro' && !isVerifying) {
+            setIsVerifying(true)
+            fetch('/api/stripe/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sessionId })
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Pro tip: router.refresh() triggers a new Server Server request
+                        router.replace('/dashboard')
+                        router.refresh()
+                    } else {
+                        setIsVerifying(false)
+                    }
+                })
+                .catch(() => setIsVerifying(false))
+        }
+    }, [searchParams, tier])
 
     useEffect(() => {
         const hour = new Date().getHours()
@@ -132,7 +158,15 @@ export function DashboardGrid({
                     <h1 className="text-2xl sm:text-3xl font-black text-[var(--text)] tracking-tight">
                         {greeting.emoji} Welcome back{profile?.full_name ? `, ${profile.full_name.split(' ')[0]}` : ''}!
                     </h1>
-                    <p className="text-[var(--text-sub)] mt-1 text-sm">{greeting.message}</p>
+                    <p className="text-[var(--text-sub)] mt-1 text-sm">
+                        {isVerifying ? (
+                            <span className="flex items-center gap-2 text-[var(--accent)] font-bold animate-pulse">
+                                Verifying payment status...
+                            </span>
+                        ) : (
+                            greeting.message
+                        )}
+                    </p>
                 </div>
                 <div className="shrink-0 mt-1">
                     <button
