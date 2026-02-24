@@ -135,9 +135,9 @@ export function DashboardGrid({
             case 'nhs-navigator': return <NHSNavigator />
 
             // V2 Expansion Tiles
-            case 'networking': return <NetworkingCRM />
+            case 'networking': return <NetworkingCRM userId={userId} />
             case 'discounts': return <DiscountTracker />
-            case 'railcard': return <RailcardManager />
+            case 'railcard': return <RailcardManager userId={userId} />
             case 'tasteofhome': return <TasteOfHome />
 
             case 'ai-assistant': return <PremiumFeatureWrapper tier={tier} featureName="Survival AI" description="Chat with your private UK survival assistant."><AIAssistant /></PremiumFeatureWrapper>
